@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"/>
+<head>
+<meta charset="UTF-8">
+<title>Investimento</title>
+<!-- jQuery Autocomplete -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+
+
+</head>
+<body>
+      <h1>Registrar Investimento</h1>
+    
+    <form th:action="@{/Investimento/adicionar}" th:object="${invest}"
+      method="post">
+      <table>
+          
+          <tr>
+           <td>Nome:</td>
+           <td>
+           <input type="text"  th:field="*{nomeProduto}"/>
+           
+           </td>
+         </tr>
+           <tr>
+           <td>Descrição:</td>
+           <td>
+          <input type="text" th:field="*{descricao}"/>
+           </td>
+         </tr>
+          <tr>
+           <td>Valor Unitário:</td>
+           <td>
+         <input type="text" th:field="*{valorUnitario}"/>
+           </td>
+         </tr>
+          <tr>
+           <td>valor Total:</td>
+            <td>
+               <input type="text"  th:field="*{valorTotal}">
+            </td> 
+          </tr>
+           <td>Quantidade:</td>
+           <td>
+           <input type="text"  th:field="*{quantidade}"/>
+           </td>
+         </tr>
+          <tr>
+           <td>Data:</td>
+           <td>
+           <input type="text" th:field="*{data}"/>
+           </td>
+         </tr>
+ 
+      </table>
+           <input type="button" th:value="calcular"/>
+         <input type="submit" value="Registrar">
+           <input type="submit" value="Cancelar"
+          formaction="/" formmethod="get"/>
+           
+     </form>
+       
+   
+  <script>
+      
+         function somar(){
+        // document.write("Não está realizando nada não se essa mensagem!")
+         var Primeiro=window.document.getElementByName('txt1')
+         var segundo=window.document.getElementByName('txt2')
+         var total=window.document.getElementById('total')
+      
+        var numero1=Number(Primeiro.value)
+        var numero2=Number(segundo.value)
+
+        var rst=numero1*numero2
+         
+         total.innerHTML=rst
+        alert("ola mundo")
+         
+        window.document.write(" resultado é"+total.innerHTML`RESULTADO É ${rst}`)
+        
+         }
+         
+     </script>
+  
+
+</body>
+</html>
