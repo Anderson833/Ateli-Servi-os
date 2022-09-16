@@ -76,11 +76,15 @@ h3{
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card-body p-5 text-center">
+          <div th:if="${msgSucesso} != null">
+      <b  th:text="${msgSucesso}" style="color: blue;"></b>
+          </div>
           <div class="row"> 
          <div class="card shadow-2-strong" id="cabecalho" style="border-radius: 1rem;">  
             <h3 class="mb-5 titulo">Cadastrar Clientes</h3>
          </div>
           </div>
+          
             <form th:action="@{/Clientes/Cadastro}" th:object="${pessoa}"
       method="post">
       
@@ -105,7 +109,7 @@ h3{
             
            <div class="botao">
           
-            <input type="submit" class="btn btn-success" th:value="${pessoa.id}==0 ? Clientes : Cadastro"/>
+            <input type="submit" class="btn btn-success" th:value="${pessoa.id}==0 ? Salvar : Cadastro"/>
 	           <a  class="btn btn-danger" href="/Clientes/principal">Voltar</a>
 	         
            </div>
