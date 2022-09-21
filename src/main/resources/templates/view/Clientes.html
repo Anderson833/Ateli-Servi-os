@@ -1,17 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt"
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:th="http://www.thymeleaf.org" 
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"/>
+<html layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8">
 <title>Cliente</title>
-<!-- jQuery Autocomplete -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
 <Style>
 
 body{
@@ -67,6 +59,9 @@ h3{
 }
 </Style>
 <link rel="icon" type="imagem/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoOqvREKWuBznjWdL6srC6XRptoXnUaMFEJw&usqp=CAU" />
+   
+    <div th:replace="linkCss"></div>
+   
 </head>
 <body>
 
@@ -76,9 +71,7 @@ h3{
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card-body p-5 text-center">
-          <div th:if="${msgSucesso} != null">
-      <b  th:text="${msgSucesso}" style="color: blue;"></b>
-          </div>
+          <div th:replace="~{mensagem}"></div>
           <div class="row"> 
          <div class="card shadow-2-strong" id="cabecalho" style="border-radius: 1rem;">  
             <h3 class="mb-5 titulo">Cadastrar Clientes</h3>
@@ -109,7 +102,7 @@ h3{
             
            <div class="botao">
           
-            <input type="submit" class="btn btn-success" th:value="${pessoa.id}==0 ? Salvar : Cadastro"/>
+            <input type="submit" class="btn btn-success" th:value="Salvar"/>
 	           <a  class="btn btn-danger" href="/Clientes/principal">Voltar</a>
 	         
            </div>
@@ -120,9 +113,7 @@ h3{
     </div>
  
 </section>
-
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+               <div th:replace="linkjavascript"></div>
 </body>
 </html>
 

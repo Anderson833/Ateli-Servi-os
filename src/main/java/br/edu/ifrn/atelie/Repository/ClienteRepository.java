@@ -19,9 +19,9 @@ public interface ClienteRepository extends JpaRepository<ClienteModel, Integer>{
 				                         @Param("telefone")String telefone,
 				                         @Param("endereco")String endereco);
 		
-	/*	
-		// BUSCANDO O TITULO DA VAGA 
-		@Query("select v from Vagas v where v.titulo like %:titulo%")
-		 List<Vagas> findByTitulo(@Param("titulo")String titulo);
-		 */
+		
+		// BUSCANDO PELO NOME DO CLIENTE
+		@Query("select v from ClienteModel v where v.nome like %:nome%")
+		 List<ClienteModel> findByNome(@Param("nome")String nome);
+		 
 }

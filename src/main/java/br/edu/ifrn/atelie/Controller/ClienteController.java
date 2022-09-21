@@ -2,21 +2,25 @@ package br.edu.ifrn.atelie.Controller;
 //Essa classe vai controlar as requisições dos dados cliente
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifrn.atelie.Modelo.ClienteModel;
+import br.edu.ifrn.atelie.Modelo.Servicos;
 import br.edu.ifrn.atelie.Repository.ClienteRepository;
 
 @Controller
@@ -34,6 +38,7 @@ public class ClienteController {
 	}
 	 //Método para adicionar os dados dos clientes
 	 @PostMapping("/Cadastro")
+	 @Transactional(readOnly = false)
 	 public String adicionarClientes(ClienteModel cliente,RedirectAttributes At) {
 		 repository.save(cliente);
 		 
@@ -53,8 +58,21 @@ public class ClienteController {
 		return "view/listaClientes";
 	}
     
+		// Método para editar cliente
+		@GetMapping("/edita/{id}")
+		public String editarServico(@PathVariable("id") Integer idCliente, ModelMap model) {
+			 // buscando pelo id do tipo do cliente
+			Optional<ClienteModel> clientes = repository.findById(idCliente);
+			// deletando o tipo de cliente que tem esse tipo de id para adicionar outro novo
+		    repository.deleteById(idCliente);
+		     // Passando os objetos para a página de cadastro de clientes
+			model.addAttribute("pessoa",clientes);
+			// retornando a ação para página de Lista todos clientes
+			return "view/Clientes";
+		}
 	 //método para lista todos clientes
 	  @GetMapping("/listaTodosClientes")
+	  @Transactional(readOnly = true)
 	 public String listaTudo(ClienteModel cli ,ModelMap md) {
 		 List<ClienteModel> clientes = repository.findAll();
 		 md.addAttribute("clientes",clientes);
@@ -81,14 +99,15 @@ public class ClienteController {
 			}
 	 
 	  //método para excluir cliente
-	 @GetMapping("/excluir/{id}")            //Passando o  e o objeto clinte como  parâmetros 
+	 @GetMapping("/excluir/{id}") 
+	 @Transactional(readOnly = false)    //Passando o  e o objeto clinte como  parâmetros 
 	 public String excluirClientes(@PathVariable("id")ClienteModel cliente, RedirectAttributes atr) {
 		// comando que fazer deletar o cliente pelo código
 		 repository.delete(cliente);
 		 // atribuindo uma mensagem para a view de lista clientes
 		 atr.addFlashAttribute("msgError", "Cliente deletado com Sucesso!");
 		 // retornando a página para todos dados listados 
-		 return "redirect:/Clientes/Listagem?nome=&telefone=&endereco=";
+		 return "redirect:/Clientes/listaTodosClientes";
 	 }
 		
 }

@@ -1,27 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt"
-xmlns="http://www.w3.org/1999/xhtml"
-xmlns:th="http://www.thymeleaf.org" 
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html layout:decorate="~{layout}">
 <head>
-<!--Import Google Icon Font-->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+
 
 
 <style>
 /* configurando o corpo da página com uma cor de fundo*/
  body{
-	background-color: aquamarine;
+	background-color:white
 	
 }
 .vh-100{
-	background-color: aquamarine;
+	background-color: white;
 }
   /*colocando uma cor de fundo na tag que centralizar a tabela*/
 #centro{
-	background-color: aliceblue;
+	background-color: white;
 }
  /* colocando uma margin bottom e uma largura*/
 #tabela{
@@ -29,15 +23,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	width: 90%;
 	
 }
-
+h1{
+	font-family: 'Times New Roman', Times, serif;
+}
 /*  colocando uma largura e uma cor de fundo no link*/
 .bt{
 	width: 100%;
 	background-color:white ;
 	padding-left: 40%;
-    background-color: aliceblue;
+    background-color: white;
 }
- 
+.centralizaTitulos{
+	text-align: center;
+}
 </style>
 <meta charset="UTF-8">
 <title>Lista de clientes</title>
@@ -47,17 +45,18 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-  
-      <section class="vh-100">
+        <section class="vh-100">
+      
  
   <div class="container py-5 h-100">
   
     <div class="row d-flex justify-content-center align-items-center h-100" id="centro" >
-      <a href="/Clientes/principal">Ir para Tela Principal</a>
+      
           <div class="card-body p-5 text-center" >
           <!-- colocando um título no corpo da página -->
            <h1>Listar Clientes</h1>
           </div>
+          <a href="/Clientes/principal" style="margin-left: 8%; margin-bottom: 0.5%;" >Ir para Tela Principal</a>
           <!-- Criando uma tabela-->
          <table class="table table-bordered " id="tabela"> 
          <!--Criando uma o título das colunas  -->
@@ -65,28 +64,33 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <!-- Crindo uma linha para colocar os títulos da coluna-->
     <tr>
          <!--Criando os títulos -->
-      <th scope="col">Nome:</th>
-      <th scope="col">Telefone:</th>
-      <th scope="col">Endereço:</th>
+      <th scope="col" class="centralizaTitulos">Nome:</th>
+      <th scope="col" class="centralizaTitulos">Telefone:</th>
+      <th scope="col" class="centralizaTitulos">Endereço:</th>
                            <!--Criador uma classe para altera o lugar do título -->
-      <th  scope="col"> <div class="bt" >Opção:</div></th>
+      <th  scope="col"> <div class="centralizaTitulos" >Excluir:</div></th>
+      <th  scope="col"> <div class="centralizaTitulos" >Edição:</div></th>
     </tr>
      <!-- fechando a tag de título ou cabeçalho -->
   </thead>
                <!-- th:each feito para percorre passando um objeto como um forith pra seta os objetos cliente na view da tabela -->
-    <tr  th:each=" cliente: ${clientes}">
-          
+             <tr  th:each=" cliente: ${clientes}">
+            
                     <!-- setando o objeto cliente do atributo nome -->
-            <td th:text="${cliente.nome}"></td>
+                  <a  th:href="'/servicos/'+${cliente.id}">   <td th:text="${cliente.nome}" class="centralizaTitulos"></td></a>
               <!-- setando o objeto cliente do atributo telefone -->
-               <td th:text="${cliente.telefone}"></td>
+               <td th:text="${cliente.telefone}" class="centralizaTitulos"></td>
                <!-- setando o objeto cliente do atributo endereço -->
-               <td th:text="${cliente.endereco}"></td>
+               <td th:text="${cliente.endereco}" class="centralizaTitulos"></td>
              
                  <td>
                       <!-- um link para excluir um cliente pelo id -->                                                                                 <!-- colocando um icone na tag de imagem pelo thymelef -->          
                  <a th:href="'/Clientes/excluir/' + ${cliente.id}" th:onclick="if(!confirm('Deseja excluir esse Cliente?'))return false" class="bt" ><img th:src="@{/imagem/bin.png}"/>
                  </a>
+              </td>
+              <td>
+               <a th:href="'/Clientes/edita/' + ${cliente.id}" th:onclick="if(!confirm('Deseja atualizar alguns dados do cliente?'))return false" class="bt" ><img th:src="@{/imagem/atualizar.png}"/>
+               </a>
               </td>
             </tr>
   
@@ -97,8 +101,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
  
 </section>
 
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
 
  <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
 </body>

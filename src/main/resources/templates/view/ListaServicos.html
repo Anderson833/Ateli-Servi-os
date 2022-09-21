@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+
+<style>
+/* configurando o corpo da página com uma cor de fundo*/
+ body{
+	background-color:white
+	
+}
+.vh-100{
+	background-color: white
+}
+  /*colocando uma cor de fundo na tag que centralizar a tabela*/
+#centro{
+	background-color: white
+}
+ /* colocando uma margin bottom e uma largura*/
+#tabela{
+	margin-bottom: 245%;
+	width: 150%;
+	
+}
+h1{
+	font-family: 'Times New Roman', Times, serif;
+}
+
+/*  colocando uma largura e uma cor de fundo no link*/
+.bt{
+	width: 100%;
+	background-color:white ;
+	padding-left: 15%;
+    background-color:white
+}
+.centralizaTextos{
+	text-align: center;
+}
+ 
+</style>
+<meta charset="UTF-8">
+<title>Lista Serviços</title>
+       <div th:replace="linkCss"></div>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+     
+      <section class="vh-100 layout-content" layout:fragment="corpo">
+ 
+  <div class="container py-5 h-100">
+  
+    <div class="row d-flex justify-content-center align-items-center h-100" id="centro" >
+    
+          <div class="card-body p-5 text-center" >
+          <!-- colocando um título no corpo da página -->
+           <h1>Listar Todos Serviços</h1>
+          </div>
+            <a href="/Clientes/principal" style="margin-left: 0%;">Ir para Tela Principal</a>
+          <!-- Criando uma tabela-->
+         <table class="table table-bordered " id="tabela"> 
+         <!--Criando uma o título das colunas  -->
+  <thead>
+    <!-- Crindo uma linha para colocar os títulos da coluna-->
+    <tr>
+         <!--Criando os títulos -->
+      <th scope="col">Nome do Cliente:</th>
+      <th scope="col">Tipo de Serviço:</th>
+      <th scope="col">Descrição:</th>
+      <th scope="col">Valor Unitário:</th>
+      <th scope="col">Valor Total:</th>
+      <th scope="col">Data de Início:</th>
+      <th scope="col">Data de Terminio:</th>
+                           <!--Criador uma classe para altera o lugar do título -->
+      <th  scope="col"><div class="centralizaTextos">Opção:</div></th>
+      <th  scope="col"><div class="centralizaTextos">Edição:</div></th>
+    </tr>
+     <!-- fechando a tag de título ou cabeçalho -->
+  </thead>
+               <!-- th:each feito para percorre passando um objeto como um forith pra seta os objetos cliente na view da tabela -->
+             <tr  th:each=" tarefas: ${mostraServicos}">
+            
+               <!-- setando o objeto cliente do atributo nome do cliente -->      
+               <td th:text="${tarefas.nome}" class="centralizaTextos"></td>
+              <!-- setando o objeto cliente do atributo tipode de serviços -->
+               <td th:text="${tarefas.tipoServico}"></td>
+               <!-- setando o objeto  do atributo descrição -->
+               <td th:text="${tarefas.descricao}"></td>
+              <!-- setando o objeto  do atributo valor unitário -->
+               <td th:text="${tarefas.valorUnitario}" class="centralizaTextos"></td>
+                <!-- setando o objeto  do atributo do valor total -->
+               <td th:text="${tarefas.valorTotal}" class="centralizaTextos"></td>
+                <!-- setando o objeto  do atributo data de inicio -->
+               <td th:text="${tarefas.dataInicio}" class="centralizaTextos"></td>
+                <!-- setando o objeto  do atributo de data de terminio -->
+               <td th:text="${tarefas.dataTermino}" class="centralizaTextos"></td>
+                 <td>
+                      <!-- um link para excluir um serviço pelo id -->                                                                                 <!-- colocando um icone na tag de imagem pelo thymelef -->          
+                 <a th:href="'/servicos/excluir/' + ${tarefas.id}" th:onclick="if(!confirm('Deseja excluir esse Serviço?'))return false" class="bt" ><img th:src="@{/imagem/bin.png}"/>
+                 </a>
+                  <!-- <a th:href="'/servicos/deletaTudo'">deleta -->
+                 </a>
+              </td>
+              <td>
+               <a th:href="'/servicos/editar/' + ${tarefas.id}" th:onclick="if(!confirm('Deseja atualizar alguns dados?'))return false" class="bt" ><img th:src="@{/imagem/atualizar.png}"/>
+                </a>
+              </td>
+            </tr>
+  
+     </table>
+           
+      </div>
+    </div>
+ 
+</section>
+ 
+  <div th:replace="linkjavascript"></div>
+</body>
+</html>

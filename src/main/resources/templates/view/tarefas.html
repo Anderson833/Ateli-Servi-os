@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Cadastra serviços</title>
+<!-- jQuery Autocomplete -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+ <script>
+       $(function (){
+          $("#clientes").autocomplete({
+	        source:"/servicos/autocompleteClientes",
+	        minlength:1,
+	         select: function(event, it){
+		        this.value=it.item.label;
+		        $("#idCliente").val(it.item.value);
+		        return false;
+             }
+           })
+         });
+ </script>
+ 
+<Style>
+
+
+body{
+	
+
+
+     
+}
+
+
+.div1{
+	margin-left: 35px;
+	margin-top: 75px;
+	margin-right: 350px;
+}
+h3{
+	color:black;
+	font-size: 45px;
+	font-style: italic;
+	font-weight: bolder;
+	font-family: 'Times New Roman', Times, serif;
+	margin: 2px;
+}
+#cabecalho{
+
+	
+	height: 120px;
+   margin-bottom: 34px;
+}
+.negrit{
+	font-weight: bolder;
+
+	
+}
+.botao{
+	margin-top: 15px;
+	margin-left: 35%;
+	margin-bottom: 45px;
+}
+.titulo{
+   margin-top: 34px;
+
+  
+}
+.vh-100{
+ margin: 0%;
+ /*background-image: url("/imagem/vaiagora.png");*/
+ background-repeat: no-repeat;
+ 
+}
+#bot1{
+	margin-right: 445px;
+	margin: 56px;
+}
+#bot2{
+	margin-left: 145px;
+	margin-top: 334px;
+}
+.espaco{
+	
+	padding-left: 10%;
+	
+}
+.msg{
+	margin-left: 300%;
+}
+</Style>
+ <div th:replace="linkCss"></div>
+</head>
+<body>
+
+  <section class="vh-100" layout:fragment="corpo">
+    
+  <div class="container py-5 h-100 ">
+     <div class="row d-flex justify-content-center align-items-center h-100" id="centro" >
+                                                       
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        
+        
+          <div class="row"> 
+                <div class="msg" th:replace="~{mensagem}"></div>
+         <div class="card shadow-2-strong" id="cabecalho" style="border-radius: 1rem;">  
+            <h3 class="mb-5 titulo" style="text-align: center;">Cadastrar Serviços</h3>
+         </div>
+          </div>
+          
+            <form class="row g-3" th:action="@{/servicos/adicionar}" th:object="${tarefas}"  enctype="multipart/form-data"
+      method="post">
+               
+             <div class="col-md-6">
+               <div class=" row negrit">
+              Nome do Cliente:
+               <input  id="clientes" th:field="*{nome}"  class="form-control" placeholder="Informe Nome do Cliente">
+             </div>
+             </div>
+              <div class="col-md-6">
+                <div class="espaco negrit">
+                Tipo de serviço:
+              <input type="text" class="form-control" th:field="*{tipoServico}" placeholder="Informe Tipo de serviço" required="Obrigatório">
+              <input  id="idCliente" type="hidden" th:field="*{cliente.id}"/>
+              </div>
+              </div>
+       
+            <div class="col-md-12">
+              <div class="row negrit">
+               Descrição:
+              <input type="text" class="form-control " th:field="*{descricao}" placeholder="Informe descrição" required="Obrigatório"/>
+            </div>
+            </div>
+            
+              <div class="col-md-6">
+              <div class="row negrit ">
+               Valor Unitário:
+              <input type="text" class="form-control" th:field="*{valorUnitario}" placeholder="Informe valor Unitário" required="Obrigatório"/>
+              </div>
+            </div>
+            
+             <div class="col-md-6">
+              <div class="espaco row negrit ">
+               Valor Total:
+              <input type="text" class="form-control" th:field="*{valorTotal}" placeholder="Informe valor Valor Total" required="Obrigatório"/>
+              </div>
+            </div>
+             <div class="col-md-6">
+              <div class=" row negrit ">
+               Data Início:
+              <input type="text" class="form-control " th:field="*{dataInicio}" placeholder="Informe data de início" required="Obrigatório"/>
+              </div>
+            </div>
+             <div class="col-md-6">
+              <div class="espaco row negrit ">
+               Data Final:
+              <input type="text" class="form-control " th:field="*{dataTermino}" placeholder="Informe data de termino" required="Obrigatório"/>
+              </div>
+            </div>
+            
+           
+            
+           <div class="botao">
+          
+            
+             <input type="submit" class="btn btn-success" th:value="adicionar"/>
+              
+	           <a  class="btn btn-danger " href="/servicos/listaTodos">Voltar</a>
+        
+           </div>
+            </form>
+           
+          </div>
+        </div>
+     
+    </div>
+ 
+</section>
+    
+  <div th:replace="linkjavascript"></div>
+   
+</body>
+</html>
+
