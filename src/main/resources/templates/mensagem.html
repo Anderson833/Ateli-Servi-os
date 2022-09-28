@@ -7,3 +7,17 @@
   <div th:if="${msgsucesso} != null">
  <b  th:text="${msgsucesso}" style="color: blue;"></b>
   </div>
+  
+   <div th:if="${msgUsuario} != null">
+ <b  th:text="${msgUsuario}" style="color: blue;"></b>
+  </div>
+  
+  
+   <div th:if="${msgVisitante} != null">
+ <b  th:text="${msgVisitante}" style="color: blue;"></b>
+  </div>
+  
+  <div th:if="${msgErrorLogin} != null">
+          <b  th:text="${msgErrorLogin}" style="color: rgb(255, 0, 0);"></b>
+          <br/><br/>
+       </div>

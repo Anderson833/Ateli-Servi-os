@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +40,7 @@ public class ClienteController {
 	 //Método para adicionar os dados dos clientes
 	 @PostMapping("/Cadastro")
 	 @Transactional(readOnly = false)
+	 @PreAuthorize("hasAuthority('admin')")
 	 public String adicionarClientes(ClienteModel cliente,RedirectAttributes At) {
 		 repository.save(cliente);
 		 
@@ -46,12 +48,6 @@ public class ClienteController {
 		 return "redirect:/Clientes/home";
 	 }
 	 
-	 //método para abrir a tela principal
-	 @GetMapping("/principal")
-	 public String telaPrincipal() {
-		 return "view/Principal";
-	 }
-
 	//método que inicia a pagina de listagem 
 	 @GetMapping("/listar")
 	public String iniciolista() {
@@ -60,6 +56,7 @@ public class ClienteController {
     
 		// Método para editar cliente
 		@GetMapping("/edita/{id}")
+		 @PreAuthorize("hasAuthority('admin')")
 		public String editarServico(@PathVariable("id") Integer idCliente, ModelMap model) {
 			 // buscando pelo id do tipo do cliente
 			Optional<ClienteModel> clientes = repository.findById(idCliente);
@@ -100,7 +97,8 @@ public class ClienteController {
 	 
 	  //método para excluir cliente
 	 @GetMapping("/excluir/{id}") 
-	 @Transactional(readOnly = false)    //Passando o  e o objeto clinte como  parâmetros 
+	 @Transactional(readOnly = false) 
+	 @PreAuthorize("hasAuthority('admin')")//Passando o  e o objeto clinte como  parâmetros 
 	 public String excluirClientes(@PathVariable("id")ClienteModel cliente, RedirectAttributes atr) {
 		// comando que fazer deletar o cliente pelo código
 		 repository.delete(cliente);

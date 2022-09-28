@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<style>
+body{
+	background-color: ghostwhite;
+}
+.div1{
+	
+	margin-left: 39%;
+	margin-top: 14%;
+	
+}
+form{
+	margin-left: 13%;
+	padding-top: 1%;
+}
+.div2{
+	margin-left: 8%;
+}
+
+</style>
+<meta charset="UTF-8">
+<title>Opções de cadastro</title>
+</head>
+<body>
+
+<div class="div1">
+       <!-- Página de inicio com os dois links de opções   -->
+       <h1>O que deseja cadastrar </h1>
+    <div class="div2">
+    <a href="/usuario">Usuário</a>
+           ou um</b>
+    <a href="/visitante">Visitante</a>
+    </div>
+      <form th:action="@{/logout}" method="post">
+         <input type="submit" value="Voltar"/>
+       </form>
+</div>
+</body>
+</html>

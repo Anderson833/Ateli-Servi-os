@@ -8,9 +8,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.GenericGenerator;
 
 //Essa classe será para modelar o objeto cliente
 
@@ -18,7 +19,8 @@ import javax.persistence.OneToMany;
 public class ClienteModel {
     // Os Atributos para cliente
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	private int id;
 	@Override
 	public int hashCode() {

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.edu.ifrn.atelie.Modelo.Calculor;
 import br.edu.ifrn.atelie.Modelo.ClienteModel;
 import br.edu.ifrn.atelie.Modelo.Servicos;
 import br.edu.ifrn.atelie.Repository.ClienteRepository;
@@ -43,6 +45,7 @@ public class ServicosController {
 	
 	//Método para adicionar os dados de serviços
 	@GetMapping("/adicionar")
+	 @PreAuthorize("hasAuthority('admin')")
 	public String salvarServicos(Integer idserv,Servicos serv, ModelMap md) {
 		// salvando no banco de dados
 		repositoryServico.saveAndFlush(serv);
@@ -52,6 +55,7 @@ public class ServicosController {
 	
 	// Método para editar servico
 	@GetMapping("/editar/{id}")
+	 @PreAuthorize("hasAuthority('admin')")
 	public String editarServico(@PathVariable("id") Integer idServico, ModelMap md) {
 		 // buscando pelo id do tipo de serviço 
 		Optional<Servicos> findById = repositoryServico.findById(idServico);
@@ -65,6 +69,7 @@ public class ServicosController {
 	
 	//método para adicionar um serviço ou mais para os clientes
 	@PostMapping("/adicionar")
+	 @PreAuthorize("hasAuthority('admin')")
 	public String adicionarServicos(Servicos serv, ModelMap md, RedirectAttributes att) {
 		
 		att.addFlashAttribute("msgsucesso","Operação Realizada Com Sucesso!");
@@ -77,6 +82,7 @@ public class ServicosController {
 	
 	//método para deleta todos os registro
 	 @GetMapping("/deletaTudo")
+	 @PreAuthorize("hasAuthority('admin')")
 	public String deletaTodosServicos(Servicos sv) {
 		 
 	        repositoryServico.deleteAllInBatch();
@@ -87,6 +93,7 @@ public class ServicosController {
 	//Método para deletar um serviços
 	@GetMapping("/excluir/{id}")
 	@Transactional(readOnly = false)
+	 @PreAuthorize("hasAuthority('admin')")
 	public String excluirServicos(@PathVariable("id") Integer id, Servicos sv,RedirectAttributes att) {
 		repositoryServico.delete(sv);
 		
@@ -94,7 +101,24 @@ public class ServicosController {
 		
 		return "redirect:/servicos/listaTodos";
 	}
-	
+	/*
+	@GetMapping("/calculo")
+	public String calculo(@RequestParam(name="qtd",required = false) double quantidade,
+			@RequestParam(name="unit",required = false) double unitario,
+			@RequestParam(name="total",required = false) double total,Calculor cal, ModelMap md) {
+	//	double Qtd=Double.parseDouble(qtd);
+	//	double unit=Double.parseDouble(unitario);
+		
+		
+		cal.setQuantidade(quantidade);
+		cal.setValorUnitario(unitario);
+		double multiplicacao=cal.getQuantidade()*cal.getValorUnitario();
+		cal.setValorTotal(multiplicacao);
+		md.addAttribute("cal", new Calculor ());
+		
+		return "view/tarefas";
+	}
+	*/
 		//Método para lista todos serviços
 	@GetMapping("/listaTodos")
 	//@Transactional(readOnly = true)

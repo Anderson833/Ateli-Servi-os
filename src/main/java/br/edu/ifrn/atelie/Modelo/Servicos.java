@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
+import org.hibernate.annotations.GenericGenerator;
 
 // ESSA CLASSE VAI MODELA OS SERVIÇOS PARA CONSTRUIR UM OBJETO SERVIÇOS
 
@@ -23,7 +24,8 @@ import org.hibernate.annotations.ForeignKey;
 public class Servicos {
 	// ATRIBUTOS DE SERVIÇOS
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	private int id;
 	private String nome;
 	public String getNome() {
@@ -32,8 +34,7 @@ public class Servicos {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	@Column(nullable = false)
-	private String tipoServico;
+	
 	@Column(nullable = true)
 	private String descricao;
 	@Column(nullable = true)
@@ -41,6 +42,8 @@ public class Servicos {
    @Column(nullable = true)
 	private double valorTotal;
 	@Column(nullable = true)
+	private double Quantidade;
+	   @Column(nullable = true)
 	private String dataInicio; 
 	@Column(nullable = true)
 	private String dataTermino;
@@ -79,11 +82,12 @@ public class Servicos {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getTipoServico() {
-		return tipoServico;
+	
+	public double getQuantidade() {
+		return Quantidade;
 	}
-	public void setTipoServico(String tipoServico) {
-		this.tipoServico = tipoServico;
+	public void setQuantidade(double quantidade) {
+		Quantidade = quantidade;
 	}
 	public String getDescricao() {
 		return descricao;
