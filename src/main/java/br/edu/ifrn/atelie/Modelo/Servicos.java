@@ -47,7 +47,16 @@ public class Servicos {
 	private String dataInicio; 
 	@Column(nullable = true)
 	private String dataTermino;
+	@Column(nullable = true)
+	private String tipoServico;
 	
+	public String getTipoServicos() {
+		return tipoServico;
+	}
+	public void setTipoServicos(String tipoServico) {
+		this.tipoServico = tipoServico;
+	}
+
 	@ForeignKey(name="cliente_id")
 	@ManyToOne 
 	private ClienteModel cliente;

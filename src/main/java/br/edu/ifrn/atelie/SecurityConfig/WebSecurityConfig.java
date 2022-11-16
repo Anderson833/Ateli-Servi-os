@@ -32,15 +32,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 			// http.authorizeRequests().anyRequest().permitAll();
 		
-			http.authorizeRequests()
-			.antMatchers("/opcaoCadastro","/usuario","/visitante","/adicionar","/Salvar").permitAll() //as urls que tem acessor sem autenticação
+			http.authorizeRequests()  // links e arquivos que são permitidos se acessados
+			.antMatchers("/estilo/**","/reponsivo/**","/test","/opcaoCadastro","/usuario","/visitante","/adicionar","/Salvar").permitAll() //as urls que tem acessor sem autenticação
 		
 			
 	// configuração das url para os usuários em comum
-	//	.antMatchers("/").hasAuthority(Visitante.Usuariocomun)
+		.antMatchers("/").hasAuthority(Visitante.Usuariocomun)
 			
 			//configuração das url para quem tem o perfil de admin 
-	//	.antMatchers("/").hasAuthority(Usuario.admin)
+		.antMatchers("/").hasAuthority(Usuario.admin)
 			
     .anyRequest().authenticated() 
 			//Apenas Permiter o acesso as demais urls só depois que tive feito o login  

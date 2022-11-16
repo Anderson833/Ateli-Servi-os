@@ -1,0 +1,17 @@
+
+/* Reponsivo da página de login   */
+
+ @media screen and (max-width: 400px){
+  .vh-100{
+		background-color: red;
+	}
+	
+	.mb-5{
+	color:darkolivegreen;
+}
+   
+
+  
+}
+
+/* Não esta funcionando, não sei porque esta causanso esse problema*/

@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.edu.ifrn.atelie.Modelo.Calculor;
 import br.edu.ifrn.atelie.Modelo.ClienteModel;
 import br.edu.ifrn.atelie.Modelo.Servicos;
+import br.edu.ifrn.atelie.Repository.CalculorRepository;
 import br.edu.ifrn.atelie.Repository.ClienteRepository;
 import br.edu.ifrn.atelie.Repository.ServicosRepository;
 
@@ -35,6 +36,10 @@ public class ServicosController {
 	
 	@Autowired
 	private ClienteRepository clienteRp;
+	
+
+	@Autowired
+	private CalculorRepository repositoryCal;
 	
 	//método para abrir a página de serviços e passa os objetos de serviços
 	@GetMapping("/atividades")
