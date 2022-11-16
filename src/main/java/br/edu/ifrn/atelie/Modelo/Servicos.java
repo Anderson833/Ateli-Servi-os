@@ -37,23 +37,29 @@ public class Servicos {
 	
 	@Column(nullable = true)
 	private String descricao;
+	
 	@Column(nullable = true)
 	private double valorUnitario;
-   @Column(nullable = true)
+   
+	@Column(nullable = true)
 	private double valorTotal;
+	
 	@Column(nullable = true)
 	private double Quantidade;
-	   @Column(nullable = true)
+	
+	@Column(nullable = true)
 	private String dataInicio; 
+	
 	@Column(nullable = true)
 	private String dataTermino;
+	
 	@Column(nullable = true)
 	private String tipoServico;
 	
-	public String getTipoServicos() {
+	public String getTipoServico() {
 		return tipoServico;
 	}
-	public void setTipoServicos(String tipoServico) {
+	public void setTipoServico(String tipoServico) {
 		this.tipoServico = tipoServico;
 	}
 
