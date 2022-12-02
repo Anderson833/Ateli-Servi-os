@@ -18,8 +18,8 @@
  /* colocando uma margin bottom e uma largura*/
 #tabela{
 	margin-bottom: 245%;
-	width: 150%;
-	
+	width: 100%;
+
 }
 h1{
 	font-family: 'Times New Roman', Times, serif;
@@ -35,7 +35,12 @@ h1{
 .centralizaTextos{
 	text-align: center;
 }
- 
+/*Colocando uma barra de rolagem */
+.barraderolagem{
+	height: 400px;
+	width: 100%;
+	overflow: auto;
+} 
 </style>
 <meta charset="UTF-8">
 <title>Lista Serviços</title>
@@ -55,6 +60,7 @@ h1{
            <h1>Listar Todos Serviços</h1>
           </div>
             <a href="/" style="margin-left: 0%;">Ir para Tela Principal</a>
+        <div class="barraderolagem">
           <!-- Criando uma tabela-->
          <table class="table table-bordered " id="tabela"> 
          <!--Criando uma o título das colunas  -->
@@ -63,8 +69,8 @@ h1{
     <tr>
          <!--Criando os títulos -->
       <th scope="col">Nome do Cliente:</th>
-      <th scope="col">Tipo de Serviço:</th>
       <th scope="col">Descrição:</th>
+      <th scope="col">Quantidade:</th>
       <th scope="col">Valor Unitário:</th>
       <th scope="col">Valor Total:</th>
       <th scope="col">Data de Início:</th>
@@ -80,10 +86,10 @@ h1{
             
                <!-- setando o objeto cliente do atributo nome do cliente -->      
                <td th:text="${tarefas.nome}" class="centralizaTextos"></td>
-              <!-- setando o objeto cliente do atributo tipo de serviços -->
-               <td th:text="${tarefas.tipoServico}"></td>
                <!-- setando o objeto  do atributo descrição -->
                <td th:text="${tarefas.descricao}"></td>
+                <!-- setando a quantidade do objeto serviços -->
+               <td th:text="${tarefas.Quantidade}"></td>
               <!-- setando o objeto  do atributo valor unitário -->
                <td th:text="${tarefas.valorUnitario}" class="centralizaTextos"></td>
                 <!-- setando o objeto  do atributo do valor total -->
@@ -106,7 +112,7 @@ h1{
             </tr>
   
      </table>
-           
+        </div>
       </div>
     </div>
  

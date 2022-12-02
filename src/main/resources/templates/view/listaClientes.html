@@ -18,6 +18,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 .tab{
 	border-style: groove;
 }
+.table{
+	width: 100%;
+}
+/* colocando uma barra de rolagem na tabela*/
+.barraderolagem{
+	height: 400px;
+	overflow: auto;
+}
 </style>
 <meta charset="UTF-8">
 <title>Lista de clientes</title>
@@ -78,6 +86,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
            
      </form>
          <div  th:if="${not #lists.isEmpty(clientesCadastrados)}">
+         <div class="barraderolagem">
          <table class="table table-bordered "> 
   <thead>
     <tr>
@@ -108,7 +117,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             </tr>
         </tbody>
      </table>
-       
+         </div>
          </div>
         </div>
       </div>
