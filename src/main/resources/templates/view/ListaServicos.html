@@ -41,6 +41,10 @@ h1{
 	width: 100%;
 	overflow: auto;
 } 
+.total{
+	margin-left: 80%;
+}
+
 </style>
 <meta charset="UTF-8">
 <title>Lista Serviços</title>
@@ -50,14 +54,18 @@ h1{
 <body>
      
       <section class="vh-100 layout-content" layout:fragment="corpo">
- 
+                     
   <div class="container py-5 h-100">
-  
+          
     <div class="row d-flex justify-content-center align-items-center h-100" id="centro" >
-    
+       
           <div class="card-body p-5 text-center" >
           <!-- colocando um título no corpo da página -->
-           <h1>Listar Todos Serviços</h1>
+           <h1>Listar Todos Serviços</h1>  
+           <div class="total">
+                         <label> Soma Total dos Serviços</label>
+                         <div class="msgTotal" th:replace="~{mensagem}"></div>
+           </div>   
           </div>
             <a href="/" style="margin-left: 0%;">Ir para Tela Principal</a>
             <div >
@@ -124,7 +132,7 @@ h1{
         </div>
       </div>
     </div>
- 
+                    
 </section>
  
   <div th:replace="linkjavascript"></div>

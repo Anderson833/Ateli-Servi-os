@@ -22,6 +22,9 @@
  <b  th:text="${msgCadastrado}" style="color: blue;"></b>
   </div>
    
+   <div th:if="${msgListaTotal} != null">
+ <b th:text="${msgListaTotal}" style="color: blue; font-size: 200%;"></b>
+  </div>
   
    <div th:if="${msgVisitante} != null">
  <b  th:text="${msgVisitante}" style="color: blue;"></b>

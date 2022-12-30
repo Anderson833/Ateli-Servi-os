@@ -1,5 +1,6 @@
 package br.edu.ifrn.atelie.Controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +41,6 @@ public class ServicosController {
 	@Autowired
 	private ClienteRepository clienteRp;
 	
-
 	@Autowired
 	private CalculorRepository repositoryCal;
 	
@@ -151,16 +151,17 @@ public class ServicosController {
 	}*/
 	
 	  // Aqui esta para mostra a contagem dos servicos e a soma de todos servicos
-	@GetMapping("/conta")
+/*	@GetMapping("/conta")
 	public String mostraQtdServicos(ModelMap model, Servicos sv) {
 		// repositoryServico.conta();
-		sv.setValorTotal(repositoryServico.soma()); // somando a qtd
+	  	sv.setValorTotal(repositoryServico.soma()); // somando a qtd
 		sv.setQuantidade(repositoryServico.conta()); // contando toda quantidade
 		sv.setNome("");
+		model.addAttribute("msgListaTotal",sv.getValorTotal());
 		model.addAttribute("mostraServicos",sv );
 		return "view/ListaServicos";
 	}
-    
+    */
 	
 	//Método para filtrar os servicos pelo nome do cliente
 	@PostMapping("/buscasCliente")
@@ -209,8 +210,27 @@ public class ServicosController {
 			 
 	    // Listando todos servicos pelo id do usuário  		 
 		List<Servicos> todosServicos = repositoryServico.listaServicosPeloId(us);
+		List<ClienteModel> clientes = clienteRp.listaClientesPeloIdUsuario(us);
+		  
+		// condição para saber se as tabelas ClienteModel e Servicos estão vazias
+		if(todosServicos.isEmpty() && clientes.isEmpty()) {
+			// Passando o resultado para decimal
+			DecimalFormat decimal = new DecimalFormat("#,##0.00");
+			double total=0;                   // exibindo o resultado
+			model.addAttribute("msgListaTotal", "R$ "+decimal.format(total));
+			// retornando para página de lista servicos
+			return  "view/ListaServicos";
+		}
+		 //Pegando toda soma dos servicos pelo id do usuário
+		serv.setValorTotal(repositoryServico.soma(us)); // somando a qtd
+		// Passando o resultado para decimal
+		DecimalFormat decimal = new DecimalFormat("#,##0.00");
+		String total =decimal.format(serv.getValorTotal());
+		// Passando valor total para se exibida na página html
+		model.addAttribute("msgListaTotal", "R$ "+total);
 		// Passando todos os objetos para a página de lista de serviços
 		model.addAttribute("mostraServicos",todosServicos);
+		// retornando para página de lista servicos
 		return "view/ListaServicos";
 	}
 	

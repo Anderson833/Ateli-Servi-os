@@ -42,7 +42,7 @@ public class InicioController {
 		// Usuario user = new Usuario()
 		 
 		 // Pegando o email do usuário 
-	/*	String email =Usuario.getEmailUsuario();
+		String email =Usuario.getEmailUsuario();
 		System.out.println(" Esse é o email do Usuário "+email);
 		
 		// Pegando o id do usuário pelo email passado como parametros 
@@ -51,7 +51,7 @@ public class InicioController {
 	//	String senha = repository.BuscaSenhaPeloEmaileId(email, id);
 	 	// String senha = repository.BuscaSenhaPeloEmail(email);
 	//	System.out.println("senha do Usuário é = "+senha);
-	    */
+	    
 		 return "view/Principal";	 
 	 }
     
