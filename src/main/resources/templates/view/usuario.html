@@ -92,10 +92,10 @@ h3{
      <div class="row d-flex justify-content-center align-items-center h-100" id="centro" >
                                                        
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-        
-        
+                          
+                        <div class="msg" th:replace="~{mensagem}"></div>
           <div class="row"> 
-                <div class="msg" th:replace="~{mensagem}"></div>
+               
          <div class="card shadow-2-strong" id="cabecalho" style="border-radius: 1rem;">  
             <h3 class="mb-5 titulo" style="text-align: center;">Informe seus dados</h3>
          </div>
@@ -113,7 +113,7 @@ h3{
               <div class="col-md-6">
                 <div class="row negrit" style="margin-right: 2%;">
                 Email:
-              <input type="email" class="form-control" th:field="*{Email}" placeholder="Informe Email" required="Obrigatório">
+              <input name="Email" type="email" class="form-control" th:field="*{Email}" placeholder="Informe Email" required="Obrigatório">
               <input  id="idCliente" type="hidden" th:field="*{id}"/>
               </div>
               </div>

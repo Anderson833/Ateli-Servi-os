@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.edu.ifrn.atelie.Modelo.ClienteModel;
+import br.edu.ifrn.atelie.Modelo.Servicos;
+import br.edu.ifrn.atelie.Modelo.Usuario;
 // Essa interface ira manipular os dados no banco de dados
 @Repository
 public interface ClienteRepository extends JpaRepository<ClienteModel, Integer>{
@@ -23,5 +25,10 @@ public interface ClienteRepository extends JpaRepository<ClienteModel, Integer>{
 		// BUSCANDO PELO NOME DO CLIENTE
 		@Query("select v from ClienteModel v where v.nome like %:nome%")
 		 List<ClienteModel> findByNome(@Param("nome")String nome);
+		
+		// listando todos clientes pelo id do usuário
+    	@Query("SELECT x FROM ClienteModel x WHERE x.usuario = ?1")
+     	List<ClienteModel> listaClientesPeloIdUsuario(@Param("usuario")Usuario us);
+    
 		 
 }

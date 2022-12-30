@@ -58,7 +58,7 @@ h3{
 </head>
 <body>
    
-<nav class="navbar navbar-expand-lg bg-light">
+<nav class="navbar navbar-expand-lg bg-light ">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">AteliêFit</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,6 +79,7 @@ h3{
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Opções:
           </a>
+        
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#"></a></li>
             <li><a class="dropdown-item" href="/Clientes/listaTodosClientes">Lista Todos Clientes</a></li>
@@ -92,6 +93,10 @@ h3{
 
           </ul>
         </li>
+         
+         <div th:if="${msglk} != null">
+              <b  th:text="${msglk}" style="color: blue;"></b>
+         
       </ul>
     </div>
   </div>

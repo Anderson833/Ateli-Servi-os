@@ -11,7 +11,17 @@
    <div th:if="${msgUsuario} != null">
  <b  th:text="${msgUsuario}" style="color: blue;"></b>
   </div>
+   
+   <!-- Informa uma mensagem caso já existir usuário com mesmo email cadastrado no banco de dados  -->
+   <div th:if="${msgErrorSalvar} != null">
+ <b  th:text="${msgErrorSalvar}" style="color: red;"></b>
+  </div>
   
+   <!-- Informa uma mensagem caso  cadastro for realizado com sucesso no banco de dados  -->
+   <div th:if="${msgCadastrado} != null">
+ <b  th:text="${msgCadastrado}" style="color: blue;"></b>
+  </div>
+   
   
    <div th:if="${msgVisitante} != null">
  <b  th:text="${msgVisitante}" style="color: blue;"></b>

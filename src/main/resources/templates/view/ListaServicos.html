@@ -60,7 +60,16 @@ h1{
            <h1>Listar Todos Serviços</h1>
           </div>
             <a href="/" style="margin-left: 0%;">Ir para Tela Principal</a>
+            <div >
+              <form th:action="@{/servicos/buscasCliente}" method="post">
+                  Pesquisa Cliente:
+                <input name="pesquisa">
+                <input type="submit" value="Buscar:">
+              </form>
+            </div>
+            <br><br>
         <div class="barraderolagem">
+    
           <!-- Criando uma tabela-->
          <table class="table table-bordered " id="tabela"> 
          <!--Criando uma o título das colunas  -->

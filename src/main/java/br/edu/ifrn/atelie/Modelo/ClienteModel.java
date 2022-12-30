@@ -9,8 +9,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.GenericGenerator;
 
 //Essa classe será para modelar o objeto cliente
@@ -36,6 +38,18 @@ public class ClienteModel {
 
 	public void setServicos(List<Servicos> servicos) {
 		this.servicos = servicos;
+	}
+     
+	@ForeignKey(name="id_usuario")
+	@ManyToOne (optional = false)
+	private Usuario usuario;
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override

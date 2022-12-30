@@ -64,18 +64,28 @@ public class Servicos {
 	}
 
 	@ForeignKey(name="cliente_id")
-	@ManyToOne 
+	@ManyToOne (optional = false)
 	private ClienteModel cliente;
-
+	
+	@ForeignKey(name="usuario_id")
+	@ManyToOne (optional = false)
+	private Usuario usuario;
 	
 	//métodos getters e setters
-	
-	public ClienteModel getCliente() {
-		return cliente;
-	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(cliente, id);
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario i) {
+		this.usuario = i;
+	}
+	
+	public ClienteModel getCliente() {
+		return cliente;
 	}
 	@Override
 	public boolean equals(Object obj) {

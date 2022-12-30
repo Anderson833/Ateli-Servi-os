@@ -37,6 +37,18 @@ public class Calculor {
 	private double valorUnitario;
 	private double valorTotal;
 	private double Quantidade;
+	private static String idUsuario;
+	
+	public String idBuscado() {
+		return this.getIdUsuario();
+	}
+	
+	public static String getIdUsuario() {
+		return idUsuario;
+	}
+	public static void setIdUsuario(String idUsuario) {
+		Calculor.idUsuario = idUsuario;
+	}
 	public double getValorUnitario() {
 		return valorUnitario;
 	}

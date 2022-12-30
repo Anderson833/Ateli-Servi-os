@@ -22,7 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifrn.atelie.Modelo.ClienteModel;
 import br.edu.ifrn.atelie.Modelo.Servicos;
+import br.edu.ifrn.atelie.Modelo.Usuario;
 import br.edu.ifrn.atelie.Repository.ClienteRepository;
+import br.edu.ifrn.atelie.Repository.UsuarioRepository;
 
 @Controller
 @RequestMapping("/Clientes")
@@ -31,10 +33,28 @@ public class ClienteController {
 	@Autowired
 	private ClienteRepository repository;
 	
+	@Autowired
+	private UsuarioRepository repositoryUsuario;
+	
 	// Método para abrir a página de cadastrar clientes e passar os objetos
 	 @GetMapping("/home")
-	public String home(ModelMap model) {
-		 model.addAttribute("pessoa",new ClienteModel());
+	public String home(ModelMap model, ClienteModel cli) {
+		 
+			  // Pegando email do usuário 
+		 String email= Usuario.getEmailUsuario();
+		  System.out.println(" aqui o email "+Usuario.getEmailUsuario());
+		  
+		  // Pegando id do usuário pelo email informado no paramentro
+		  int ids = repositoryUsuario.BuscaIdPeloEmail(email);
+			System.out.println("aqui  id do usuário é = "+ids);
+			
+			// buscando todos dados do usuário pelo id informa no paramentro
+		     Usuario us = repositoryUsuario.BuscaTodosDadosPeloId(ids);
+		 System.out.println("O objeto é esse  "+us.getId());
+		 // Passando para objeto do tipo usuário para atributo no objeto ClienteModel
+		  cli.setUsuario(us);
+	     // Passando o objeto para página html 
+		 model.addAttribute("pessoa",cli);
 		return "view/Clientes";
 	}
 	 //Método para adicionar os dados dos clientes
@@ -67,14 +87,30 @@ public class ClienteController {
 			// retornando a ação para página de Lista todos clientes
 			return "view/Clientes";
 		}
+		
 	 //método para lista todos clientes
 	  @GetMapping("/listaTodosClientes")
 	  @Transactional(readOnly = true)
 	 public String listaTudo(ClienteModel cli ,ModelMap md) {
-		 List<ClienteModel> clientes = repository.findAll();
+		  
+		  // Pegando email do usuário 
+			 String email= Usuario.getEmailUsuario();
+			  System.out.println(" aqui o email "+Usuario.getEmailUsuario());
+			  
+			  // Pegando id do usuário pelo email informado no paramentro
+			  int id = repositoryUsuario.BuscaIdPeloEmail(email);
+				System.out.println("aqui  id do usuário é = "+id);
+			
+				
+				// buscando todos dados do usuário pelo id informa no paramentro
+			     Usuario us = repositoryUsuario.BuscaTodosDadosPeloId(id);
+			 System.out.println("O objeto é esse  "+us.getId());
+				// Passando todos clientes pelo id do usuário
+		  List<ClienteModel> clientes = repository.listaClientesPeloIdUsuario(us);
+	//	 List<ClienteModel> clientes = repository.findAll();
 		 md.addAttribute("clientes",clientes);
 		 return "view/listaTudo";
-	 }
+	  }
 	 
 	   // método para lista todos os clientes
 	 @GetMapping("/Listagem")     //passando os dados como parâmetros para lista os dados dos clientes

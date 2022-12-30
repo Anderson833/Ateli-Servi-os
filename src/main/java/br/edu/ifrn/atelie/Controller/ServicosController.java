@@ -15,14 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifrn.atelie.Modelo.Calculor;
 import br.edu.ifrn.atelie.Modelo.ClienteModel;
 import br.edu.ifrn.atelie.Modelo.Servicos;
+import br.edu.ifrn.atelie.Modelo.Usuario;
 import br.edu.ifrn.atelie.Repository.CalculorRepository;
 import br.edu.ifrn.atelie.Repository.ClienteRepository;
 import br.edu.ifrn.atelie.Repository.ServicosRepository;
+import br.edu.ifrn.atelie.Repository.UsuarioRepository;
 
 //Essa classe vai controlar as requisições feitas para serviços 
 
@@ -41,10 +44,32 @@ public class ServicosController {
 	@Autowired
 	private CalculorRepository repositoryCal;
 	
+	@Autowired
+	private UsuarioRepository repository;
+	
 	//método para abrir a página de serviços e passa os objetos de serviços
 	@GetMapping("/atividades")
-	public String tarefas(ModelMap model) {
-		model.addAttribute("tarefas", new Servicos());
+	public String tarefas(ModelMap model,Servicos serv) {
+	
+      // Pegando email do usuário 
+	 String email= Usuario.getEmailUsuario();
+	  System.out.println(" aqui o email "+Usuario.getEmailUsuario());
+	  
+	  // Pegando id do usuário pelo email informado no paramentro
+	  int id = repository.BuscaIdPeloEmail(email);
+		System.out.println("aqui  id do usuário é = "+id);
+		
+		// buscando todos dados do usuário pelo id informa no paramentro
+	     Usuario us = repository.BuscaTodosDadosPeloId(id);
+	 System.out.println("O objeto é esse  "+us.getId());
+	 
+	  
+	 // Passando o objeto us de usuário para salva nos serviços
+	 serv.setUsuario(us);
+	 System.out.println(" o ID do objeto "+serv.getUsuario());
+	  //  Passando o objeto para exibir na página html de cadastro de servicos
+		model.addAttribute("tarefas", serv);
+		
 		return "view/tarefas";
 	}
 	
@@ -102,12 +127,13 @@ public class ServicosController {
 	public String excluirServicos(@PathVariable("id") Integer id, Servicos sv,RedirectAttributes att) {
 		repositoryServico.delete(sv);
 		
+	
 		att.addFlashAttribute("msgError","Tipo de serviço excluído com Sucesso!");
 		
 		return "redirect:/servicos/listaTodos";
 	}
-	/*
-	@GetMapping("/calculo")
+	
+	/*@GetMapping("/calculo")
 	public String calculo(@RequestParam(name="qtd",required = false) double quantidade,
 			@RequestParam(name="unit",required = false) double unitario,
 			@RequestParam(name="total",required = false) double total,Calculor cal, ModelMap md) {
@@ -122,14 +148,67 @@ public class ServicosController {
 		md.addAttribute("cal", new Calculor ());
 		
 		return "view/tarefas";
+	}*/
+	
+	  // Aqui esta para mostra a contagem dos servicos e a soma de todos servicos
+	@GetMapping("/conta")
+	public String mostraQtdServicos(ModelMap model, Servicos sv) {
+		// repositoryServico.conta();
+		sv.setValorTotal(repositoryServico.soma()); // somando a qtd
+		sv.setQuantidade(repositoryServico.conta()); // contando toda quantidade
+		sv.setNome("");
+		model.addAttribute("mostraServicos",sv );
+		return "view/ListaServicos";
 	}
-	*/
+    
+	
+	//Método para filtrar os servicos pelo nome do cliente
+	@PostMapping("/buscasCliente")
+	// @PreAuthorize("hasAuthority('admin')")
+	public String buscaServicos(@RequestParam("pesquisa")String nome,ModelMap model) {
+	//repositoryServico.buscaServicos(nome);
+		/*ModelAndView  mdv = new ModelAndView ("view/ListaServicos");
+		mdv.addObject("mostraServicos",repositoryServico.buscaServicos(nome));
+		System.out.println(repositoryServico.buscaServicos(nome));
+     */ 
+		//condição para lista tudo
+		if(nome.equals("lista") || nome==null) {
+			return "redirect:/servicos/listaTodos";
+		}
+		
+		List<Servicos> servicos = repositoryServico.buscaServicos(nome);
+		model.addAttribute("mostraServicos", servicos);
+		return "view/ListaServicos";
+	}
+	
+	
 		//Método para lista todos serviços
 	@GetMapping("/listaTodos")
 	//@Transactional(readOnly = true)
-	public String listaServicos( ModelMap model) {
+	public String listaServicos( ModelMap model,Servicos serv) {
+		
+		  // Pegando email do usuário 
+		 String email= Usuario.getEmailUsuario();
+		  System.out.println(" aqui o email "+Usuario.getEmailUsuario());
+		  
+		  // Pegando id do usuário pelo email informado no paramentro
+		  int id = repository.BuscaIdPeloEmail(email);
+			System.out.println("aqui  id do usuário é = "+id);
+		
+			
+			// buscando todos dados do usuário pelo id informa no paramentro
+		     Usuario us = repository.BuscaTodosDadosPeloId(id);
+		 System.out.println("O objeto é esse  "+us.getId());
+			
+			 // Passando o objeto us de usuário para salva nos serviços
+			 serv.setUsuario(us);
+			 System.out.println(" o ID do objeto "+serv.getUsuario());
+			
 		  // buscando por todos registros de serviços
-		List<Servicos> todosServicos = repositoryServico.findAll();
+		//List<Servicos> todosServicos = repositoryServico.findAll();
+			 
+	    // Listando todos servicos pelo id do usuário  		 
+		List<Servicos> todosServicos = repositoryServico.listaServicosPeloId(us);
 		// Passando todos os objetos para a página de lista de serviços
 		model.addAttribute("mostraServicos",todosServicos);
 		return "view/ListaServicos";

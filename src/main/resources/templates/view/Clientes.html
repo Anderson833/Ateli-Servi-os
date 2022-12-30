@@ -85,6 +85,7 @@ h3{
              <div class="row negrit">
               Nome:
               <input type="text" class="form-control form-control-lg" th:field="*{nome}" placeholder="Informe nome" required="Obrigatório"/>
+               <input type="hidden"  th:field="*{usuario.id}">
              </div>
             </div>
               <div class="form-outline mb-4">
