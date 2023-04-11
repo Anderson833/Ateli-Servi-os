@@ -16,14 +16,30 @@
    <div th:if="${msgErrorSalvar} != null">
  <b  th:text="${msgErrorSalvar}" style="color: red;"></b>
   </div>
-  
+   
    <!-- Informa uma mensagem caso  cadastro for realizado com sucesso no banco de dados  -->
    <div th:if="${msgCadastrado} != null">
  <b  th:text="${msgCadastrado}" style="color: blue;"></b>
   </div>
    
+    <div th:if="${msgInvestimento} != null">
+ <b  th:text="${msgInvestimento}" style="color: blue;"></b>
+  </div>
+  
    <div th:if="${msgListaTotal} != null">
  <b th:text="${msgListaTotal}" style="color: blue; font-size: 200%;"></b>
+  </div>
+  
+   <div th:if="${TotalDespesas} != null">
+ <b th:text="${TotalDespesas}" style="color: blue; font-size: 200%;"></b>
+  </div>
+  
+   <div th:if="${TotalInvestimento} != null">
+ <b th:text="${TotalInvestimento}" style="color: blue; font-size: 200%;"></b>
+  </div>
+  
+  <div th:if="${msgDespesa} != null">
+ <b th:text="${msgDespesa}" style="color: blue; font-size: 200%;"></b>
   </div>
   
    <div th:if="${msgVisitante} != null">

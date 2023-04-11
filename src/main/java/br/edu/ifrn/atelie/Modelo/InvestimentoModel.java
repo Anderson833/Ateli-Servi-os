@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.ForeignKey;
 
 // Essa classe vai modela os investimentos
 
@@ -44,6 +47,17 @@ public class InvestimentoModel {
 	private int quantidade;
 	private String data;
 	
+	@ForeignKey(name="usuario_invest")
+	@ManyToOne (optional = false)
+	private Usuario usuario;
+
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	// Gerando os getters e setters
 	public String getNomeProduto() {
 		return nomeProduto;

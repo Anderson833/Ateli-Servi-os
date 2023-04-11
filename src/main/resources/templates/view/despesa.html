@@ -2,7 +2,7 @@
 <html layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8">
-<title>Cadastra investimento</title>
+<title>Cadastra Despesas</title>
 <!-- jQuery Autocomplete -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -99,25 +99,26 @@ h3{
         
           <div class="row"> 
                 <div class="msg" th:replace="~{mensagem}"></div>
-         <div class="card shadow-2-strong" id="cabecalho" style="border-radius: 1rem;">  
-            <h3 class="mb-5 titulo" style="text-align: center;">Cadastrar Investimento</h3>
+         <div class="card shadow-2-strong" id="cabecalho" style="border-radius: 1rem;">
+            <h3 class="mb-5 titulo" style="text-align: center;">Cadastrar Despesas</h3>
          </div>
           </div>
           
-            <form class="row g-3" th:action="@{/Investimento/inserir}" th:object="${invest}"  enctype="multipart/form-data"
+            <form class="row g-3" th:action="@{/despesas/salvar}" th:object="${despesa}"  enctype="multipart/form-data"
       method="post">
                
-             <div class="col-md-6">
-               <div class=" row negrit">
-              Nome do Produto:
-               <input  id="clientes" th:field="*{nomeProduto}"  class="form-control" placeholder="Informe Nome do Produto">
-               <input type="hidden"  th:field="*{usuario.id}">
-             </div>
-             </div>
+              <div class="col-md-6">
+              <div class="row negrit ">
+               Valor Total:
+                <input type="hidden"  th:field="*{usuario.id}">
+              <input type="text" name="unit" class="form-control" th:field="*{valorTotal}" placeholder="Informe valor total" required="Obrigatório"/>
+              </div>
+            </div>
+
               <div class="col-md-6">
                 <div class="espaco negrit">
-                Quantidade:
-              <input type="text" name="qtd" class="form-control" th:field="*{quantidade}" placeholder="Informe Quantidade" required="Obrigatório">
+                Data:
+              <input type="text"  class="form-control" th:field="*{data}" placeholder="Informe a data" required="Obrigatório">
               
               </div>
               </div>
@@ -128,31 +129,12 @@ h3{
               <input type="text" class="form-control " th:field="*{descricao}" placeholder="Informe descrição" required="Obrigatório"/>
             </div>
             </div>
-            
-              <div class="col-md-6">
-              <div class="row negrit ">
-               Valor Unitário:
-              <input type="text"  class="form-control" th:field="*{valorUnitario}" placeholder="Informe valor Unitário" required="Obrigatório"/>
-              </div>
-            </div>
-            
-             <div class="col-md-6">
-              <div class="espaco row negrit ">
-             
-               Valor Total:
-              <input type="text" id="v" do name="Total"
-                class="form-control" th:field="*{valorTotal}" placeholder="Informe valor Valor Total" required="Obrigatório"/>
-              </div>
-            </div>
-             <div class="col-md-6">
-              <div class=" row negrit ">
-               Data :
-              <input type="text" class="form-control" th:field="*{data}" placeholder="Informe a data" required="Obrigatório"/>
-              </div>
-            </div> 
+                        
+       
            <div class="botao">
              <input type="submit" class="btn btn-success" th:value="adicionar"/>
 	           <a  class="btn btn-danger" href="/">Voltar</a>
+         
            </div>
            
           </div>

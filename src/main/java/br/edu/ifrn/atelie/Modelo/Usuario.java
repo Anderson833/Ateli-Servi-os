@@ -24,13 +24,15 @@ public class Usuario {
 	 private int id;
 	 private String perfilUsuario=admin;
      
-	 private static String emailUsuario;
+	 public static ArrayList<String> listaEmail = new ArrayList<>();
+	
+	 private static String EmailUsuario;
 	
 	public static String getEmailUsuario() {
-		return emailUsuario;
+		return EmailUsuario;
 	}
 	public static void setEmailUsuario(String emailUsuario) {
-		Usuario.emailUsuario = emailUsuario;
+		EmailUsuario = emailUsuario;
 	}
 	public String getPerfilUsuario() {
 		return perfilUsuario;
@@ -59,6 +61,26 @@ public class Usuario {
 	}
 	public void setClientes(List<ClienteModel> clientes) {
 		this.clientes = clientes;
+	}
+	
+	@OneToMany(mappedBy = "usuario",orphanRemoval = true, cascade = CascadeType.ALL)
+	private List<Despesa> despesa = new ArrayList<>(); 
+	
+	public List<Despesa> getDespesa() {
+		return despesa;
+	}
+	public void setDespesa(List<Despesa> despesa) {
+		this.despesa = despesa;
+	}
+
+	@OneToMany(mappedBy = "usuario",orphanRemoval = true, cascade = CascadeType.ALL)
+	private List<InvestimentoModel> investimento = new ArrayList<>();
+	
+	public List<InvestimentoModel> getInvestimento() {
+		return investimento;
+	}
+	public void setInvestimento(List<InvestimentoModel> investimento) {
+		this.investimento = investimento;
 	}
 
 	@Column(nullable = false)

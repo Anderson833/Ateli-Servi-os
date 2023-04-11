@@ -47,7 +47,7 @@ h1{
 
 </style>
 <meta charset="UTF-8">
-<title>Lista Serviços</title>
+<title>Lista Investimentos</title>
        <div th:replace="linkCss"></div>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
@@ -60,17 +60,20 @@ h1{
     <div class="row d-flex justify-content-center align-items-center h-100" id="centro" >
        
           <div class="card-body p-5 text-center" >
+          <div th:if="${msgExcluirInvestimento} != null">
+ <b  th:text="${msgExcluirInvestimento}" style="color: red;"></b>
+  </div>
           <!-- colocando um título no corpo da página -->
-           <h1>Listar Todos Serviços</h1>  
+           <h1>Listar Todos Investimentos</h1>  
            <div class="total">
-                         <label> Soma Total dos Serviços</label>
+                         <label> Soma Total dos Investimentos</label>
                          <div class="msgTotal" th:replace="~{mensagem}"></div>
            </div>   
           </div>
             <a href="/" style="margin-left: 0%;">Ir para Tela Principal</a>
             <div >
               <form th:action="@{/servicos/buscasCliente}" method="post">
-                  Pesquisa Cliente:
+                  Pesquisa Investimento:
                 <input name="pesquisa">
                 <input type="submit" value="Buscar:">
               </form>
@@ -85,13 +88,13 @@ h1{
     <!-- Crindo uma linha para colocar os títulos da coluna-->
     <tr>
          <!--Criando os títulos -->
-      <th scope="col">Nome do Cliente:</th>
+      <th scope="col">Nome do Produto:</th>
       <th scope="col">Descrição:</th>
       <th scope="col">Quantidade:</th>
       <th scope="col">Valor Unitário:</th>
       <th scope="col">Valor Total:</th>
-      <th scope="col">Data de Início:</th>
-      <th scope="col">Data de Terminio:</th>
+      <th scope="col">Data de data:</th>
+      
                            <!--Criador uma classe para altera o lugar do título -->
       <th  scope="col"><div class="centralizaTextos">Opção:</div></th>
       <th  scope="col"><div class="centralizaTextos">Edição:</div></th>
@@ -99,33 +102,29 @@ h1{
      <!-- fechando a tag de título ou cabeçalho -->
   </thead>
                <!-- th:each feito para percorre passando um objeto como um forith pra seta os objetos cliente na view da tabela -->
-             <tr  th:each=" tarefas: ${mostraServicos}">
+             <tr  th:each="dados: ${invest}">
             
-               <!-- setando o objeto cliente do atributo nome do cliente -->      
-               <td th:text="${tarefas.nome}" class="centralizaTextos"></td>
-                  <!-- setando o objeto cliente do atributo nome do cliente -->      
-               <td  th:text="${tarefas.usuario.id}" hidden class="centralizaTextos"></td>
-               <!-- setando o objeto  do atributo descrição -->
-               <td th:text="${tarefas.descricao}"></td>
-                <!-- setando a quantidade do objeto serviços -->
-               <td th:text="${tarefas.Quantidade}"></td>
-              <!-- setando o objeto  do atributo valor unitário -->
-               <td th:text="${tarefas.valorUnitario}" class="centralizaTextos"></td>
-                <!-- setando o objeto  do atributo do valor total -->
-               <td th:text="${tarefas.valorTotal}" class="centralizaTextos"></td>
-                <!-- setando o objeto  do atributo data de inicio -->
-               <td th:text="${tarefas.dataInicio}" class="centralizaTextos"></td>
-                <!-- setando o objeto  do atributo de data de terminio -->
-               <td th:text="${tarefas.dataTermino}" class="centralizaTextos"></td>
+               <!-- setando o objeto investimento do atributo nome do Produto -->      
+               <td th:text="${dados.nomeProduto}" class="centralizaTextos"></td>
+                  <!-- setando o objeto investimento do atributo descrição -->      
+               <td  th:text="${dados.descricao}" class="centralizaTextos"></td>
+               <!-- setando o objeto investimento do atributo quantidade -->
+               <td th:text="${dados.quantidade}"></td>
+                <!-- setando o valor unitário do objeto investimento -->
+               <td th:text="${dados.valorUnitario}"></td>
+              <!-- setando o objeto  do atributo valor total -->
+               <td th:text="${dados.valorTotal}" class="centralizaTextos"></td>
+                <!-- setando o objeto  do atributo do data -->
+               <td th:text="${dados.data}" class="centralizaTextos"></td>
                  <td>
                       <!-- um link para excluir um serviço pelo id -->                                                                                 <!-- colocando um icone na tag de imagem pelo thymelef -->          
-                 <a th:href="'/servicos/excluir/' + ${tarefas.id}" th:onclick="if(!confirm('Deseja excluir esse Serviço?'))return false" class="bt" ><img th:src="@{/imagem/bin.png}"/>
+                 <a th:href="'/Investimento/excluir/' + ${dados.id}" th:onclick="if(!confirm('Deseja excluir esse Serviço?'))return false" class="bt" ><img th:src="@{/imagem/bin.png}"/>
                  </a>
                   <!-- <a th:href="'/servicos/deletaTudo'">deleta -->
                  </a>
               </td>
               <td>
-               <a th:href="'/servicos/editar/' + ${tarefas.id}" th:onclick="if(!confirm('Deseja atualizar alguns dados?'))return false" class="bt" ><img th:src="@{/imagem/atualizar.png}"/>
+               <a th:href="'/Investimento/editar/' + ${dados.id}" th:onclick="if(!confirm('Deseja atualizar alguns dados?'))return false" class="bt" ><img th:src="@{/imagem/atualizar.png}"/>
                 </a>
               </td>
             </tr>

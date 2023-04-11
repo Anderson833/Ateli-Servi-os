@@ -53,6 +53,7 @@ public class ServicosController {
 	
       // Pegando email do usuário 
 	 String email= Usuario.getEmailUsuario();
+	
 	  System.out.println(" aqui o email "+Usuario.getEmailUsuario());
 	  
 	  // Pegando id do usuário pelo email informado no paramentro
@@ -190,8 +191,7 @@ public class ServicosController {
 		
 		  // Pegando email do usuário 
 		 String email= Usuario.getEmailUsuario();
-		  System.out.println(" aqui o email "+Usuario.getEmailUsuario());
-		  
+		// String email=Usuario.listaEmail.toString(); 
 		  // Pegando id do usuário pelo email informado no paramentro
 		  int id = repository.BuscaIdPeloEmail(email);
 			System.out.println("aqui  id do usuário é = "+id);
@@ -213,7 +213,7 @@ public class ServicosController {
 		List<ClienteModel> clientes = clienteRp.listaClientesPeloIdUsuario(us);
 		  
 		// condição para saber se as tabelas ClienteModel e Servicos estão vazias
-		if(todosServicos.isEmpty() && clientes.isEmpty()) {
+		if(todosServicos.isEmpty() && clientes.isEmpty()|| todosServicos.isEmpty()) {
 			// Passando o resultado para decimal
 			DecimalFormat decimal = new DecimalFormat("#,##0.00");
 			double total=0;                   // exibindo o resultado

@@ -17,7 +17,7 @@ import br.edu.ifrn.atelie.Modelo.Usuario;
 @Repository
 public interface ServicosRepository extends JpaRepository<Servicos, Integer>{
    
-	    // somando toda quantidade 
+	    // somando todo total dos serviços
      	@Query("SELECT SUM(x.valorTotal) FROM Servicos x WHERE x.usuario =?1")
            Double soma(@Param("usuario")Usuario usu);
      	 // contando toda quantidade de servicos registrados

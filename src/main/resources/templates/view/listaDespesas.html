@@ -58,12 +58,15 @@ h1{
   <div class="container py-5 h-100">
           
     <div class="row d-flex justify-content-center align-items-center h-100" id="centro" >
-       
+        
           <div class="card-body p-5 text-center" >
+           <div th:if="${msgDeletaDespesa} != null">
+         <b  th:text="${msgDeletaDespesa}" style="color: red;"></b>
+         </div>
           <!-- colocando um título no corpo da página -->
-           <h1>Listar Todos Serviços</h1>  
+           <h1>Listar Todas Despesas</h1>  
            <div class="total">
-                         <label> Soma Total dos Serviços</label>
+                         <label> Soma Total das Despesas</label>
                          <div class="msgTotal" th:replace="~{mensagem}"></div>
            </div>   
           </div>
@@ -85,13 +88,10 @@ h1{
     <!-- Crindo uma linha para colocar os títulos da coluna-->
     <tr>
          <!--Criando os títulos -->
-      <th scope="col">Nome do Cliente:</th>
       <th scope="col">Descrição:</th>
-      <th scope="col">Quantidade:</th>
-      <th scope="col">Valor Unitário:</th>
       <th scope="col">Valor Total:</th>
-      <th scope="col">Data de Início:</th>
-      <th scope="col">Data de Terminio:</th>
+      <th scope="col">Data:</th>
+
                            <!--Criador uma classe para altera o lugar do título -->
       <th  scope="col"><div class="centralizaTextos">Opção:</div></th>
       <th  scope="col"><div class="centralizaTextos">Edição:</div></th>
@@ -99,33 +99,22 @@ h1{
      <!-- fechando a tag de título ou cabeçalho -->
   </thead>
                <!-- th:each feito para percorre passando um objeto como um forith pra seta os objetos cliente na view da tabela -->
-             <tr  th:each=" tarefas: ${mostraServicos}">
-            
-               <!-- setando o objeto cliente do atributo nome do cliente -->      
-               <td th:text="${tarefas.nome}" class="centralizaTextos"></td>
-                  <!-- setando o objeto cliente do atributo nome do cliente -->      
-               <td  th:text="${tarefas.usuario.id}" hidden class="centralizaTextos"></td>
-               <!-- setando o objeto  do atributo descrição -->
-               <td th:text="${tarefas.descricao}"></td>
-                <!-- setando a quantidade do objeto serviços -->
-               <td th:text="${tarefas.Quantidade}"></td>
-              <!-- setando o objeto  do atributo valor unitário -->
-               <td th:text="${tarefas.valorUnitario}" class="centralizaTextos"></td>
-                <!-- setando o objeto  do atributo do valor total -->
-               <td th:text="${tarefas.valorTotal}" class="centralizaTextos"></td>
-                <!-- setando o objeto  do atributo data de inicio -->
-               <td th:text="${tarefas.dataInicio}" class="centralizaTextos"></td>
-                <!-- setando o objeto  do atributo de data de terminio -->
-               <td th:text="${tarefas.dataTermino}" class="centralizaTextos"></td>
-                 <td>
-                      <!-- um link para excluir um serviço pelo id -->                                                                                 <!-- colocando um icone na tag de imagem pelo thymelef -->          
-                 <a th:href="'/servicos/excluir/' + ${tarefas.id}" th:onclick="if(!confirm('Deseja excluir esse Serviço?'))return false" class="bt" ><img th:src="@{/imagem/bin.png}"/>
+             <tr  th:each=" desp: ${despesa}">
+               <!-- setando o objeto despesa do atributo descrição -->      
+               <td th:text="${desp.descricao}" class="centralizaTextos"></td>
+                  <!-- setando o objeto despesa do atributo valor total -->      
+               <td  th:text="${desp.valorTotal}" class="centralizaTextos"></td>
+               <!-- setando o objeto  do atributo data -->
+                 <td th:text="${desp.data}"  class="centralizaTextos"></td>
+                      <!-- um link para excluir um serviço pelo id -->  
+                 <td>                                                                                    <!-- colocando um icone na tag de imagem pelo thymelef -->          
+                 <a th:href="'/despesas/excluir/' + ${desp.id}" th:onclick="if(!confirm('Deseja excluir esse Serviço?'))return false" class="bt" ><img th:src="@{/imagem/bin.png}"/>
                  </a>
                   <!-- <a th:href="'/servicos/deletaTudo'">deleta -->
-                 </a>
+
               </td>
               <td>
-               <a th:href="'/servicos/editar/' + ${tarefas.id}" th:onclick="if(!confirm('Deseja atualizar alguns dados?'))return false" class="bt" ><img th:src="@{/imagem/atualizar.png}"/>
+               <a th:href="'/despesas/editar/' + ${desp.id}" th:onclick="if(!confirm('Deseja atualizar alguns dados?'))return false" class="bt" ><img th:src="@{/imagem/atualizar.png}"/>
                 </a>
               </td>
             </tr>

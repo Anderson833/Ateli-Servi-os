@@ -1,5 +1,8 @@
 package br.edu.ifrn.atelie.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,14 +46,16 @@ public class InicioController {
 		 
 		 // Pegando o email do usuário 
 		String email =Usuario.getEmailUsuario();
-		System.out.println(" Esse é o email do Usuário "+email);
+	/*	System.out.println(" Esse é o email do Usuário "+email);
+		List<String> list = new ArrayList<>();
+		 list.add(email);*/
 		
 		// Pegando o id do usuário pelo email passado como parametros 
 		int id = repository.BuscaIdPeloEmail(email);
 		System.out.println("id desse usuário é = "+id);
 	//	String senha = repository.BuscaSenhaPeloEmaileId(email, id);
-	 	// String senha = repository.BuscaSenhaPeloEmail(email);
-	//	System.out.println("senha do Usuário é = "+senha);
+	 String senha = repository.BuscaSenhaPeloEmail(email);
+		System.out.println("senha do Usuário é = "+senha);
 	    
 		 return "view/Principal";	 
 	 }

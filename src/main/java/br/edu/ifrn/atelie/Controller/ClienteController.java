@@ -42,7 +42,8 @@ public class ClienteController {
 		 
 			  // Pegando email do usuário 
 		 String email= Usuario.getEmailUsuario();
-		  System.out.println(" aqui o email "+Usuario.getEmailUsuario());
+		
+		  System.out.println(" aqui o email "+Usuario.listaEmail.toString());
 		  
 		  // Pegando id do usuário pelo email informado no paramentro
 		  int ids = repositoryUsuario.BuscaIdPeloEmail(email);
@@ -95,21 +96,21 @@ public class ClienteController {
 		  
 		  // Pegando email do usuário 
 			 String email= Usuario.getEmailUsuario();
-			  System.out.println(" aqui o email "+Usuario.getEmailUsuario());
+			  System.out.println(" aqui o email "+Usuario.listaEmail.toString());
 			  
-			  // Pegando id do usuário pelo email informado no paramentro
-			  int id = repositoryUsuario.BuscaIdPeloEmail(email);
-				System.out.println("aqui  id do usuário é = "+id);
-			
-				
-				// buscando todos dados do usuário pelo id informa no paramentro
-			     Usuario us = repositoryUsuario.BuscaTodosDadosPeloId(id);
-			 System.out.println("O objeto é esse  "+us.getId());
+			  
+				  // Pegando id do usuário pelo email informado no paramentro
+				  int id = repositoryUsuario.BuscaIdPeloEmail(email);
+					System.out.println("aqui  id do usuário é = "+id);
+					// buscando todos dados do usuário pelo id informa no paramentro
+				     Usuario us = repositoryUsuario.BuscaTodosDadosPeloId(id);
+				 System.out.println("O objeto é esse  "+us.getId());
 				// Passando todos clientes pelo id do usuário
-		  List<ClienteModel> clientes = repository.listaClientesPeloIdUsuario(us);
-	//	 List<ClienteModel> clientes = repository.findAll();
-		 md.addAttribute("clientes",clientes);
-		 return "view/listaTudo";
+				  List<ClienteModel> clientes = repository.listaClientesPeloIdUsuario(us);
+				  md.addAttribute("clientes",clientes);
+			  
+			  
+	          	 return "view/listaTudo";
 	  }
 	 
 	   // método para lista todos os clientes
