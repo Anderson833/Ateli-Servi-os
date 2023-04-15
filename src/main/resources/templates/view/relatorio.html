@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Relatorio</title>
+</head>
+<style>
+   
+   *{
+	 margin: 0px;
+	 padding: 0px;
+	 box-sizing: border-box;
+}
+ .container{
+	 height: 100%;
+ display: flex; /*Comando para deixar as divs na horizontal*/
+  flex-direction: row-reverse;   /*Comando para deixar as divs na horizontal*/ /*flex-direction: column;   /*Comando para deixar as divs na vertical*/
+  flex-wrap: wrap; /*Comando para fazer funciona os tamonhos em %*/
+  margin-top: 5%;
+  text-align: center;
+  /*justify-content: start; /*Conteúdo ficar do lado esquerdo*/
+ /*  justify-content: end; /*Conteúdo ficar do lado direito*/
+  /*align-items: center; não está fncionando aqui*/
+ /*justify-content: center; /*Conteúdo ficar ao centro*/
+  justify-content: space-evenly; /*Conteúdo ficar com espaço entre eles*/
+}
+  .container01{
+  height: 100%;
+ display: flex; /*Comando para deixar as divs na horizontal*/
+  flex-direction: row;   /*Comando para deixar as divs na horizontal*/ /*flex-direction: column;   /*Comando para deixar as divs na vertical*/
+  flex-wrap: wrap; /*Comando para fazer funciona os tamonhos em %*/
+  margin-top: 3%;
+  text-align: center;
+  justify-content:center; /*Conteúdo ficar ao centro*/
+}
+ h2{
+	text-align: center;
+}
+  .div1{
+   width: 20%;
+   height: 200px;
+    padding-top: 2%;
+   border: 1px solid black;
+}
+.div02{
+	 width: 20%;
+   height: 200px;
+   margin-right: 15%;
+   padding-top: 2%;
+   border: 1px solid black;
+}
+.div03{
+	 width: 20%;
+   height: 200px;
+   padding-top: 2%;
+   border: 1px solid black;
+}
+h1{
+	text-align: center;
+	padding-top: 2%;
+}
+ a{
+	padding-left: 7%;
+	
+}
+</style>
+<body>
+               <h1>Relatório</h1>
+   <a href="/" style="margin-left: 0%;">Ir para Tela Principal</a>
+     <div class="container">
+  
+       <div class="div1">
+          <h3>Total das Despesas </h3>
+            <div th:if="${TotalDasDespesas} != null">
+ <b th:text="${TotalDasDespesas}" style="color: blue; font-size: 200%;"></b>
+  </div>
+  </div>
+       <br>
+         <div class="div1">
+          <h3>Total de todo Investimentos </h3>
+            <div th:if="${TotalDosInvestimento} != null">
+ <b th:text="${TotalDosInvestimento}" style="color: blue; font-size: 200%;"></b>
+  </div>
+       </div><br>
+       <div class="div1">
+          <h3>Total de todos Serviços </h3>
+           <div th:replace="~{mensagem}"></div>
+       </div>
+       
+       
+     </div>
+     <div class="container01">
+      <div class="div02">
+          <h3>Total do Ganho antes despesas </h3>
+           <div th:if="${TotalAntesDespesas} != null">
+ <b th:text="${TotalAntesDespesas}" style="color: blue; font-size: 200%;"></b>
+  </div>
+   <div th:if="${TotalAntesDespesasNegativa} != null">
+ <b th:text="${TotalAntesDespesasNegativa}" style="color: red; font-size: 200%;"></b>
+  </div>
+       </div>
+       <br>
+       <div class="div03">
+          <h3>Total do Ganho pos despesas </h3>
+           <div th:if="${TotalPosDespesas} != null">
+ <b th:text="${TotalPosDespesas}" style="color: blue; font-size: 200%;"></b>
+  </div>
+  <div th:if="${TotalPosDespesasNegativa} != null">
+ <b th:text="${TotalPosDespesasNegativa}" style="color: red; font-size: 200%;"></b>
+  </div>
+       </div><br>
+     </div>
+</body>
+</html>

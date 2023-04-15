@@ -24,6 +24,8 @@ public class InicioController {
 	@Autowired
 	private UsuarioRepository repository;
 	
+	int contador=0;
+	
 	// método para abrir a página de login 
 	@GetMapping("/login")
 	public String inicio(){
@@ -39,35 +41,38 @@ public class InicioController {
 	}
     
 	
-    //método para abrir a tela principal
-	 @GetMapping("/")
-	 public String telaPrincipal(RedirectAttributes att) {
-		// Usuario user = new Usuario()
-		 
-		 // Pegando o email do usuário 
-		String email =Usuario.getEmailUsuario();
-	/*	System.out.println(" Esse é o email do Usuário "+email);
-		List<String> list = new ArrayList<>();
-		 list.add(email);*/
+	   //método para abrir a tela principal
+		 @GetMapping("/")
+		 public String telaPrincipalComAutorizacao(RedirectAttributes att) {
 		
-		// Pegando o id do usuário pelo email passado como parametros 
-		int id = repository.BuscaIdPeloEmail(email);
-		System.out.println("id desse usuário é = "+id);
-	//	String senha = repository.BuscaSenhaPeloEmaileId(email, id);
-	 String senha = repository.BuscaSenhaPeloEmail(email);
-		System.out.println("senha do Usuário é = "+senha);
+			String email =Usuario.getEmailUsuario();
+		/*	System.out.println(" Esse é o email do Usuário "+email);*/
+	
+			 ArrayList<Integer> acesso = new ArrayList<>();
+			 ArrayList<Integer> restricao = new ArrayList<>();
+			// Pegando o id do usuário pelo email passado como parametros 
+			int id = repository.BuscaIdPeloEmail(email);
+			System.out.println("id desse usuário é = "+id);
+			acesso.add(id);
+		    restricao.add(0);
+		    
+		    
+			//restricao.clear();
+			if(acesso.contains(0)) {
+				contador++;
+				System.out.println("vezes "+contador);
+                  if(contador==3){
+                		System.out.println("Entrou no if id do usuário="+id);
+        				att.addFlashAttribute("msgPermicao", "Indesponível por ausência de pagamento!");
+                          return "redirect:/login";  
+                  }
+			}else {
+				
+			}
+			System.out.println("Entrou no else ");
+			 return "view/Principal";	
+		 }
 	    
-		 return "view/Principal";	 
-	 }
-    
-	/* @PostMapping("/login")
-		public String buscaId(@RequestParam("username") String email,
-	             ModelMap att) {
-	  String id= repository.BuscaIdPeloEmail(email);
-	  att.addAttribute("msglk", id);
-	  System.out.println("id do usuário"+id);
-	           return "view/Principal";
-		}*/
 	 
 	  //método para abrir a tela de opção de cadastro
 		 @GetMapping("/opcaoCadastro")

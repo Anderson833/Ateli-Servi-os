@@ -2,6 +2,7 @@ package br.edu.ifrn.atelie.Modelo;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.ForeignKey;
+import org.springframework.lang.Nullable;
 
 // Essa classe vai modela os investimentos
 
@@ -41,6 +43,7 @@ public class InvestimentoModel {
 		this.id = id;
 	}
 	private String nomeProduto;
+	@Column (nullable = true)
 	private String descricao;
 	private double valorUnitario;
 	private double valorTotal;

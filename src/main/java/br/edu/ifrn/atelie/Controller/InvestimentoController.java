@@ -117,6 +117,7 @@ public class InvestimentoController {
 		  return "view/calcular";
 	  }
 	  
+	  
 	  @PostMapping("/inserir")
 	  public String inserirInvestimento(InvestimentoModel invest,RedirectAttributes att) {
 		   repository.save(invest);

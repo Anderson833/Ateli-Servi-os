@@ -11,7 +11,9 @@
    <div th:if="${msgUsuario} != null">
  <b  th:text="${msgUsuario}" style="color: blue;"></b>
   </div>
-   
+   <div th:if="${msgPermicao} != null">
+ <b  th:text="${msgPermicao}" style="color: blue;"></b>
+  </div>
    <!-- Informa uma mensagem caso já existir usuário com mesmo email cadastrado no banco de dados  -->
    <div th:if="${msgErrorSalvar} != null">
  <b  th:text="${msgErrorSalvar}" style="color: red;"></b>
