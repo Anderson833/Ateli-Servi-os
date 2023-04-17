@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			// http.authorizeRequests().anyRequest().permitAll();
 		
 			http.authorizeRequests()  // links e arquivos que são permitidos se acessados
-			.antMatchers("/estilo/**","/reponsivo/**","/test","/opcaoCadastro","/usuario","/visitante","/adicionar","/Salvar").permitAll() //as urls que tem acessor sem autenticação
+			.antMatchers("/estilo/**","/reponsivo/**","/test","/opcaoCadastro","/Cadastra-se","/adicionar","/Salvar").permitAll() //as urls que tem acessor sem autenticação
 		
 			
 	// configuração das url para os usuários em comum

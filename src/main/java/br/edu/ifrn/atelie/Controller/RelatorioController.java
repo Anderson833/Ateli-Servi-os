@@ -45,7 +45,7 @@ public class RelatorioController {
 				System.out.println("aqui  id do usuário é = "+id);
 			
 				// buscando todos dados do usuário pelo id informa no paramentro
-			     Usuario us = repositoryUsuario.BuscaTodosDadosPeloId(id);
+			     Usuario us = repositoryUsuario.BuscaTodosDadosDoUsuarioPeloId(id);
 			 System.out.println("O objeto é esse  "+us.getId());
 			
 			 // ações dos métodos nas linhas debaixo

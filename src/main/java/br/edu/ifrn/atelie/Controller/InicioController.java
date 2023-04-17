@@ -35,7 +35,6 @@ public class InicioController {
 	// método para caso de error ao fazer login exibir uma mensagem
     @GetMapping("/login-Error")
 	public String ErrorDeLogin(ModelMap model) {
-   
     	model.addAttribute("msgErrorLogin"," Email ou  senha estão incorretos. Tente novamente!");
     	return "view/login";
 	}
@@ -52,10 +51,17 @@ public class InicioController {
 			 ArrayList<Integer> restricao = new ArrayList<>();
 			// Pegando o id do usuário pelo email passado como parametros 
 			int id = repository.BuscaIdPeloEmail(email);
+			
 			System.out.println("id desse usuário é = "+id);
 			acesso.add(id);
 		    restricao.add(0);
-		    
+		   
+	    	  if(repository.existsById(id)) {
+			    	
+			    }else {
+					att.addFlashAttribute("msgUsuarioNaoExiste","Não existe usuário cadastrado com esse email!");
+			        return "view/login";
+			    }
 		    
 			//restricao.clear();
 			if(acesso.contains(0)) {
@@ -70,7 +76,7 @@ public class InicioController {
 				
 			}
 			System.out.println("Entrou no else ");
-			 return "view/Principal";	
+			return "view/Principal";
 		 }
 	    
 	 

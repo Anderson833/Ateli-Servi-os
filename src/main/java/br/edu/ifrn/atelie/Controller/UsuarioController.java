@@ -1,13 +1,15 @@
 package br.edu.ifrn.atelie.Controller;
 
-import java.util.Optional;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -26,7 +28,7 @@ public class UsuarioController {
 	@Autowired
 	private VisitanteRepository visitanteRp;
 	 //Método para abrir a página de de cadastro de usuário e passar os atributos do tipo usuário  
-	 @GetMapping("/usuario")
+	 @GetMapping("/Cadastra-se")
 	 public String cadastraUsuario(ModelMap model) {
 		 model.addAttribute("usuario", new Usuario());
 		 return "view/usuario";
@@ -81,6 +83,24 @@ public class UsuarioController {
 			 
 		}
 		
+	 
+	  //método para excluir um Usuário
+		 @GetMapping("/Conta-Excluida") 
+		 @Transactional(readOnly = false) 
+		 @PreAuthorize("hasAuthority('admin')")//Passando o  e o objeto usuário como  parâmetros 
+		 public String excluirUsuario(Usuario usuario) {
+			 String email =Usuario.getEmailUsuario();
+					// Pegando o id do usuário pelo email passado como parametros 
+					int id = repository.BuscaIdPeloEmail(email);
+					
+					System.out.println("id desse usuário é = "+id);
+			// comando que fazer deletar o usuário pelo código
+			 repository.deleteById(id);
+             System.out.println(" id deletado "+id);
+			 // retornando para página  de login 
+			 return "redirect:/login";
+		 }
+	 
 	 }
 	 
 	 

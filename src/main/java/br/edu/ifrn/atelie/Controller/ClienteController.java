@@ -50,7 +50,7 @@ public class ClienteController {
 			System.out.println("aqui  id do usuário é = "+ids);
 			
 			// buscando todos dados do usuário pelo id informa no paramentro
-		     Usuario us = repositoryUsuario.BuscaTodosDadosPeloId(ids);
+		     Usuario us = repositoryUsuario.BuscaTodosDadosDoUsuarioPeloId(ids);
 		 System.out.println("O objeto é esse  "+us.getId());
 		 // Passando para objeto do tipo usuário para atributo no objeto ClienteModel
 		  cli.setUsuario(us);
@@ -103,14 +103,14 @@ public class ClienteController {
 				  int id = repositoryUsuario.BuscaIdPeloEmail(email);
 					System.out.println("aqui  id do usuário é = "+id);
 					// buscando todos dados do usuário pelo id informa no paramentro
-				     Usuario us = repositoryUsuario.BuscaTodosDadosPeloId(id);
-				 System.out.println("O objeto é esse  "+us.getId());
+				     Usuario us = repositoryUsuario.BuscaTodosDadosDoUsuarioPeloId (id);
+				 System.out.println("O id do objeto é esse  "+us.getId());
 				// Passando todos clientes pelo id do usuário
 				  List<ClienteModel> clientes = repository.listaClientesPeloIdUsuario(us);
+				  System.out.println("Perfil do objeto "+us.admin);
 				  md.addAttribute("clientes",clientes);
 			  
-			  
-	          	 return "view/listaTudo";
+	          	 return "view/listaTodosClientes";
 	  }
 	 
 	   // método para lista todos os clientes

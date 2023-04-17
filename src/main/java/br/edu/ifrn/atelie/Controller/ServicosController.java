@@ -61,7 +61,7 @@ public class ServicosController {
 		System.out.println("aqui  id do usuário é = "+id);
 		
 		// buscando todos dados do usuário pelo id informa no paramentro
-	     Usuario us = repository.BuscaTodosDadosPeloId(id);
+	     Usuario us = repository.BuscaTodosDadosDoUsuarioPeloId(id);
 	 System.out.println("O objeto é esse  "+us.getId());
 	 
 	  
@@ -198,7 +198,7 @@ public class ServicosController {
 		
 			
 			// buscando todos dados do usuário pelo id informa no paramentro
-		     Usuario us = repository.BuscaTodosDadosPeloId(id);
+		     Usuario us = repository.BuscaTodosDadosDoUsuarioPeloId(id);
 		 System.out.println("O objeto é esse  "+us.getId());
 			
 			 // Passando o objeto us de usuário para salva nos serviços

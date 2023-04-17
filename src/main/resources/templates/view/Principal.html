@@ -125,9 +125,11 @@ h3{
             Opções:
           </a>
         
-          <ul class="dropdown-menu">
-              <a class="nav-link" href="#">Deleta conta</a>
-              <form th:action="@{/logout}" method="post">
+          <ul class="dropdown-menu"> 
+                <a class="nav-link"  href="/Conta-Excluida" th:onclick="if(!confirm('Deseja excluir esse Conta?'))return false">Excluir Conta
+                 </a> 
+              
+              <form  class="nav-link" th:action="@{/logout}" method="post">
                 <input type="submit"  value="Sair">
               </form>
           

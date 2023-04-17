@@ -27,7 +27,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 		
 		// realizando o comando para buscar todos dados do usuário pelo id na tabela de Usuario
 		@Query("select u from Usuario u where  u.id = ?1") 
-		  Usuario BuscaTodosDadosPeloId(@Param("id")int id);
+		  Usuario BuscaTodosDadosDoUsuarioPeloId(@Param("id")int id);
 		
 	
 		// realizando o comando para buscar id pelo email senha na tabela de Usuario

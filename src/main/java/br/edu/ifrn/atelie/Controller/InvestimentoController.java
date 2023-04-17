@@ -40,7 +40,7 @@ public class InvestimentoController {
 				System.out.println("aqui  id do usuário é = "+id);
 			
 				// buscando todos dados do usuário pelo id informa no paramentro
-			     Usuario us = repositoryUsuario.BuscaTodosDadosPeloId(id);
+			     Usuario us = repositoryUsuario.BuscaTodosDadosDoUsuarioPeloId(id);
 			 System.out.println("O objeto é esse  "+us.getId());
 			 // Passando o objeto us de usuário para salva nos serviços
 			 invest.setUsuario(us);
@@ -73,7 +73,7 @@ public class InvestimentoController {
 				System.out.println("aqui  id do usuário é = "+id);
 			
 				// buscando todos dados do usuário pelo id informa no paramentro
-			     Usuario us = repositoryUsuario.BuscaTodosDadosPeloId(id);
+			     Usuario us = repositoryUsuario.BuscaTodosDadosDoUsuarioPeloId(id);
 			 System.out.println("O objeto é esse  "+us.getId());
 			
 			 // Listando todos servicos pelo id do usuário  		 
