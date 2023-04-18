@@ -74,15 +74,7 @@ public class ServicosController {
 		return "view/tarefas";
 	}
 	
-	//Método para adicionar os dados de serviços
-	@GetMapping("/adicionar")
-	 @PreAuthorize("hasAuthority('admin')")
-	public String salvarServicos(Integer idserv,Servicos serv, ModelMap md) {
-		// salvando no banco de dados
-		repositoryServico.saveAndFlush(serv);
-		//retonando para a página de cadastrar serviços
-		return "redirect:/servicos/atividades";
-	}
+	
 	
 	// Método para editar servico
 	@GetMapping("/editar/{id}")
@@ -101,12 +93,21 @@ public class ServicosController {
 	//método para adicionar um serviço ou mais para os clientes
 	@PostMapping("/adicionar")
 	 @PreAuthorize("hasAuthority('admin')")
-	public String adicionarServicos(Servicos serv, ModelMap md, RedirectAttributes att) {
+	public String adicionarServicos(Servicos serv, ModelMap md, RedirectAttributes att,@RequestParam(name="buscaNome",required = false)String nome) {
 		
 		att.addFlashAttribute("msgsucesso","Operação Realizada Com Sucesso!");
+		List<ClienteModel> cliente = clienteRp.listaClientePeloNome(nome);
+		//condição para lista tudo
+		if(cliente==null) {
+			att.addFlashAttribute("msgsucesso","Não tem esse suário cadastrado!");
+			System.out.println("entrou fo if ");
+			return "redirect:/servicos/atividades";
 		
-		//já salvar no banco de dados
-		repositoryServico.save(serv);
+		}else {
+			//já salvar no banco de dados
+			repositoryServico.save(serv);
+		}
+		
 		
 		return "redirect:/servicos/atividades";
 	}
@@ -182,6 +183,59 @@ public class ServicosController {
 		model.addAttribute("mostraServicos", servicos);
 		return "view/ListaServicos";
 	}
+    
+	
+	 
+	
+	//Método para filtrar os servicos pelas datas de inicio e final
+	@PostMapping("/buscaPorDatas")
+	// @PreAuthorize("hasAuthority('admin')")
+	public String listaServicosPorDatas(Servicos serv,@RequestParam("dataInicio")String dataI,@RequestParam("dataFinal")String dataF,ModelMap model) {
+		 // Pegando email do usuário 
+		 String email= Usuario.getEmailUsuario();
+		
+		  System.out.println(" aqui o email "+Usuario.getEmailUsuario());
+		  
+		  // Pegando id do usuário pelo email informado no paramentro
+		  int id = repository.BuscaIdPeloEmail(email);
+			System.out.println("aqui  id do usuário é = "+id);
+			
+			// buscando todos dados do usuário pelo id informa no paramentro
+		    Usuario  us = repository.BuscaTodosDadosDoUsuarioPeloId(id);
+		 System.out.println("O objeto é esse  "+us.getId());
+		 
+		 // Listando todos servicos pelo id do usuário  		 
+			List<Servicos> todosServicos = repositoryServico.listaServicosPeloId(us);
+			List<ClienteModel> clientes = clienteRp.listaClientesPeloIdUsuario(us);
+			//List<Servicos> servicos = repositoryServico.listaServicosPelasDatas(dataI, dataF);
+			List<Servicos> servicosPorDatas = repositoryServico.listaServicosPelasDatasIdUsuario(dataI, dataF,us);
+			// condição para saber se as tabelas ClienteModel e Servicos estão vazias
+			if(todosServicos.isEmpty() &&  servicosPorDatas==null) {
+				// Passando o resultado para decimal
+				DecimalFormat decimal = new DecimalFormat("#,##0.00");
+				double total=0;                   // exibindo o resultado
+				model.addAttribute("msgListaTotal", "R$ "+decimal.format(total));
+				// retornando para página de lista servicos
+				return  "view/ListaServicos";
+			}
+				
+		
+				model.addAttribute("mostraServicos", servicosPorDatas);
+				//Pegando toda soma dos servicos pelo id do usuário
+				serv.setValorTotal(repositoryServico.listaSomandoTodosServicosPelasDatas(dataI,dataF,us)); // somando a qtd
+				// Passando o resultado para decimal
+				DecimalFormat decimal = new DecimalFormat("#,##0.00");
+				String total =decimal.format(serv.getValorTotal());
+				// Passando valor total para se exibida na página html
+				model.addAttribute("msgListaTotal", "R$ "+total);
+			
+
+			return "view/ListaServicos";
+		
+		 
+		 
+	}
+	
 	
 	
 		//Método para lista todos serviços

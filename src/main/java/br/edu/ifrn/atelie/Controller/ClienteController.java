@@ -63,8 +63,7 @@ public class ClienteController {
 	 @Transactional(readOnly = false)
 	 @PreAuthorize("hasAuthority('admin')")
 	 public String adicionarClientes(ClienteModel cliente,RedirectAttributes At) {
-		 repository.save(cliente);
-		 
+				 repository.save(cliente);
 		 At.addFlashAttribute("msgSucesso","Cliente Cadastrado com sucesso!");
 		 return "redirect:/Clientes/home";
 	 }
@@ -112,7 +111,7 @@ public class ClienteController {
 			  
 	          	 return "view/listaTodosClientes";
 	  }
-	 
+ 
 	   // método para lista todos os clientes
 	 @GetMapping("/Listagem")     //passando os dados como parâmetros para lista os dados dos clientes
 		public String listarVagas(@RequestParam(name="nome" ,required = false) String nome,

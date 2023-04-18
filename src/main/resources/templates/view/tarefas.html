@@ -110,7 +110,7 @@ h3{
              <div class="col-md-6">
                <div class=" row negrit">
               Nome do Cliente:
-               <input  id="clientes" th:field="*{nome}"  class="form-control" placeholder="Informe Nome do Cliente">
+               <input  id="clientes" th:field="*{nome}" th:name="buscaNome" class="form-control" placeholder="Informe Nome do Cliente">
                  <input  id="idCliente" type="hidden" th:field="*{cliente.id}"/>
                  <input   type="hidden" th:field="*{Usuario.id}" />
              </div>

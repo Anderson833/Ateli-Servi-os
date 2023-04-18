@@ -30,5 +30,8 @@ public interface ClienteRepository extends JpaRepository<ClienteModel, Integer>{
     	@Query("SELECT x FROM ClienteModel x WHERE x.usuario = ?1")
      	List<ClienteModel> listaClientesPeloIdUsuario(@Param("usuario")Usuario us);
     
-		 
+    	// lista o nome do cliente por nome informado
+     	@Query("SELECT x FROM ClienteModel x WHERE x.nome =?1")
+     	List<ClienteModel> listaClientePeloNome(@Param("nome")String nome);
+     
 }

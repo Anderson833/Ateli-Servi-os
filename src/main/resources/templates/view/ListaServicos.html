@@ -13,7 +13,7 @@
 }
   /*colocando uma cor de fundo na tag que centralizar a tabela*/
 #centro{
-	background-color: white
+	background-color: white;
 }
  /* colocando uma margin bottom e uma largura*/
 #tabela{
@@ -44,7 +44,12 @@ h1{
 .total{
 	margin-left: 80%;
 }
-
+.datai{
+	width: 20%;
+}
+.forDatas{
+	 padding-top: 10%;
+	}
 </style>
 <meta charset="UTF-8">
 <title>Lista Serviços</title>
@@ -69,11 +74,22 @@ h1{
           </div>
             <a href="/" style="margin-left: 0%;">Ir para Tela Principal</a>
             <div >
+         
               <form th:action="@{/servicos/buscasCliente}" method="post">
                   Pesquisa Cliente:
-                <input name="pesquisa">
+                <input name="pesquisa" placeholder="Nome do Cliente">
                 <input type="submit" value="Buscar:">
               </form>
+                 <div class="formDatas">
+              <form th:action="@{/servicos/buscaPorDatas}" method="post">
+              
+                <input name="dataInicio" placeholder="Informe a Data de início:">
+              
+                <input  name="dataFinal" placeholder="Informe a Data Final">
+               
+                <input type="submit" value="Listar:">
+              </form>
+            </div>
             </div>
             <br><br>
         <div class="barraderolagem">
