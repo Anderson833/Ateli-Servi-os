@@ -1,5 +1,7 @@
 package br.edu.ifrn.atelie.Modelo;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +18,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 // ESSA CLASSE VAI MODELA OS SERVIÇOS PARA CONSTRUIR UM OBJETO SERVIÇOS
 
@@ -50,9 +53,17 @@ public class Servicos {
 	@Column(nullable = true)
 	private String dataInicio; 
 	
-	@Column(nullable = true)
-	private String dataTermino;
-	
+    
+   //	@DateTimeFormat(pattern = "DD/MM/YYYY")
+	private String  data;
+
+	public String getData() {
+		return data;
+	}
+	public void setData(String data) {
+		this.data = data;
+	}
+
 	@Column(nullable = true)
 	private String tipoServico;
 	
@@ -138,13 +149,6 @@ public class Servicos {
 	public void setDataInicio(String dataInicio) {
 		this.dataInicio = dataInicio;
 	}
-	public String getDataTermino() {
-		return dataTermino;
-	}
-	public void setDataTermino(String dataTermino) {
-		this.dataTermino = dataTermino;
-	}
-	
 	
 	
 }

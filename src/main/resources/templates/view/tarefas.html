@@ -118,7 +118,7 @@ h3{
               <div class="col-md-6">
                 <div class="espaco negrit">
                 Quantidade:
-              <input type="text" name="qtd" class="form-control" th:field="*{Quantidade}" placeholder="Informe Quantidade" required="Obrigatório">
+              <input type="number" name="qtd" class="form-control" th:field="*{Quantidade}" placeholder="Informe Quantidade" required="Obrigatório">
               
               </div>
               </div>
@@ -146,15 +146,9 @@ h3{
               </div>
             </div>
              <div class="col-md-6">
-              <div class=" row negrit ">
-               Data Início:
-              <input type="text" class="form-control" th:field="*{dataInicio}" placeholder="Informe data de início" required="Obrigatório"/>
-              </div>
-            </div>
-             <div class="col-md-6">
               <div class="espaco row negrit ">
-               Data Final:
-              <input type="text" class="form-control " th:field="*{dataTermino}" placeholder="Informe data de termino" required="Obrigatório"/>
+               Data:
+              <input type="date" class="form-control " th:field="*{data}" placeholder="Informe data de termino" required="Obrigatório"/>
               </div>
             </div>
             

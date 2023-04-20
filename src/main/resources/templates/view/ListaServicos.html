@@ -83,9 +83,9 @@ h1{
                  <div class="formDatas">
               <form th:action="@{/servicos/buscaPorDatas}" method="post">
               
-                <input name="dataInicio" placeholder="Informe a Data de início:">
+                <input type="date" name="dataInicio" placeholder="Informe a Data de início:">
               
-                <input  name="dataFinal" placeholder="Informe a Data Final">
+                <input type="date" name="dataFinal" placeholder="Informe a Data Final">
                
                 <input type="submit" value="Listar:">
               </form>
@@ -132,7 +132,7 @@ h1{
                 <!-- setando o objeto  do atributo data de inicio -->
                <td th:text="${tarefas.dataInicio}" class="centralizaTextos"></td>
                 <!-- setando o objeto  do atributo de data de terminio -->
-               <td th:text="${tarefas.dataTermino}" class="centralizaTextos"></td>
+               <td th:text="${tarefas.data}" class="centralizaTextos"></td>
                  <td>
                       <!-- um link para excluir um serviço pelo id -->                                                                                 <!-- colocando um icone na tag de imagem pelo thymelef -->          
                  <a th:href="'/servicos/excluir/' + ${tarefas.id}" th:onclick="if(!confirm('Deseja excluir esse Serviço?'))return false" class="bt" ><img th:src="@{/imagem/bin.png}"/>

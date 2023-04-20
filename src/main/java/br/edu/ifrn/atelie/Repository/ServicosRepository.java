@@ -29,19 +29,25 @@ public interface ServicosRepository extends JpaRepository<Servicos, Integer>{
      	List<Servicos> buscaServicos(@Param("nome")String nome);
      	
      // lista todos serviços pela datas de inicio e final
-     	@Query("SELECT x FROM Servicos x WHERE x.dataTermino > ?1 and x.dataTermino <?2")
+     /*	@Query("SELECT x FROM Servicos x WHERE x.data > ?1 and x.data <?2")
      	List<Servicos> listaServicosPelasDatas(@Param("dataTermino")String dataI,@Param("dataTermino")String data);
-     	
+     	*/
      // lista todos serviços pela datas de inicio e final
-     	@Query("SELECT x FROM Servicos x WHERE x.dataTermino > ?1 and x.dataTermino <?2 and x.usuario = ?3")
+     	@Query("SELECT x FROM Servicos x WHERE x.data >= ?1 and x.data <=?2 and x.usuario = ?3")
      	List<Servicos> listaServicosPelasDatasIdUsuario(@Param("dataTermino")String dataI,@Param("dataTermino")String data,
      			@Param("usuario")Usuario us);
      	
      	
      	 // Soma o total de todos  serviços pela datas de inicio e final e id do usuário
-     	@Query("SELECT SUM(x.valorTotal) FROM Servicos x WHERE x.dataTermino > ?1 and x.dataTermino <?2 and x.usuario = ?3")
-     	Double  listaSomandoTodosServicosPelasDatas(@Param("dataTermino")String dataI,@Param("dataTermino")String dataf,
+     	@Query("SELECT SUM(x.valorTotal) FROM Servicos x WHERE x.data >= ?1 and x.data <=?2 and x.usuario = ?3")
+     	Double  somamdoPorDatasIdUsuario(@Param("dataTermino")String dataI,@Param("dataTermino")String dataf,
      			@Param("usuario")Usuario us);
+     	
+     	 // Soma o total de todos  serviços pela datas de inicio e final e id do usuário
+     /*	@Query("SELECT SUM(x.valorTotal) FROM Servicos x WHERE x.dataTermino > ?1 and x.dataTermino <?2")
+     	Double  somamdoPorDatas(@Param("dataTermino")String dataI,@Param("dataTermino")String dataf);
+     			*/
+     			
      	
      	// listando todos servicos pelo id do usuário
     	@Query("SELECT x FROM Servicos x WHERE x.usuario = ?1")

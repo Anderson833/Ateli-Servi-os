@@ -79,7 +79,7 @@ public class UsuarioController {
 			 // método para exibir uma mensagem para o usuário 
 			  at.addFlashAttribute("msgCadastrado","Usuário salvo com sucesso!");
 			// retornando para a página de cadastro de usuario
-			  return "redirect:/usuario";
+			  return "redirect:/Cadastra-se";
 			 
 		}
 		
