@@ -67,7 +67,6 @@ public class ServicosController {
 	     Usuario us = repository.BuscaTodosDadosDoUsuarioPeloId(id);
 	 System.out.println("O objeto é esse  "+us.getId());
 	 
-	  
 	 // Passando o objeto us de usuário para salva nos serviços
 	 serv.setUsuario(us);
 	 System.out.println(" o ID do objeto "+serv.getUsuario());
@@ -181,13 +180,45 @@ public class ServicosController {
 		mdv.addObject("mostraServicos",repositoryServico.buscaServicos(nome));
 		System.out.println(repositoryServico.buscaServicos(nome));
      */ 
+		
+		 // Pegando email do usuário 
+		 String email= Usuario.getEmailUsuario();
+		
+		  System.out.println(" aqui o email "+Usuario.getEmailUsuario());
+		  
+		  // Pegando id do usuário pelo email informado no paramentro
+		  int id = repository.BuscaIdPeloEmail(email);
+			System.out.println("aqui  id do usuário é = "+id);
+			
+			// buscando todos dados do usuário pelo id informa no paramentro
+		    Usuario  us = repository.BuscaTodosDadosDoUsuarioPeloId(id);
+		 System.out.println("O objeto é esse  "+us.getId());
+		 List<Servicos> servicos = repositoryServico.buscaServicos(nome);
+	
+		
 		//condição para lista tudo
-		if(nome.equals("lista") || nome==null) {
+		if(nome.equals("lista") || nome==null || servicos==null) {
+			// Passando o resultado para decimal
+			DecimalFormat decimal = new DecimalFormat("#,##0.00");
+			double totalVazio=0;// exibindo o resultado
+			model.addAttribute("msgListaTotal", "R$ "+decimal.format(totalVazio));
 			return "redirect:/servicos/listaTodos";
+		}else if(repositoryServico.somandoPeloNomeDoCliente(us, nome)==null) {
+			// Passando o resultado para decimal
+			DecimalFormat decimal = new DecimalFormat("#,##0.00");
+		 double totalZero=0;	// exibindo o resultado
+			model.addAttribute("msgListaTotal", "R$ "+decimal.format(totalZero));
+		
+		}else {
+			// Passando o resultado para decimal
+						DecimalFormat decimal = new DecimalFormat("#,##0.00");
+						double total =repositoryServico.somandoPeloNomeDoCliente(us, nome);
+						// exibindo o resultado
+						model.addAttribute("msgListaTotal", "R$ "+decimal.format(total));
+					
+						model.addAttribute("mostraServicos", servicos);
 		}
 		
-		List<Servicos> servicos = repositoryServico.buscaServicos(nome);
-		model.addAttribute("mostraServicos", servicos);
 		return "view/ListaServicos";
 	}
     
@@ -351,7 +382,7 @@ public class ServicosController {
 			  if(i==7) {
 				  i7=caracter;
 				  caracteres=String.valueOf(i7);
-				  p7=caracteres;
+				  p7=caracteres.replace("-", "/");
 				//  System.out.print(" index 7 "+p7);
 			  }
 			  if(i==6) {
@@ -369,8 +400,8 @@ public class ServicosController {
 			  if(i==4) {
 				  i4=caracter;
 				  caracteres=String.valueOf(i4);
-				  p4=caracteres;
-				 // System.out.print(" index 4 "+p4);
+				  p4=caracteres.replace("-", "/");
+				// System.out.print(" index 4 "+p4);
 			  }
 			  if(i==3) {
 				  i3=caracter;
@@ -399,7 +430,7 @@ public class ServicosController {
 			  if(i==9) {
 				//  System.out.println(" "+test+" Data convertida "+p8+p9+p7+p5+p6+p4+p0+p1+p2+p3);
 				  dataConvert=p8+p9+p7+p5+p6+p4+p0+p1+p2+p3;
-				  System.out.println(dataConvert);
+				 // System.out.println(" "+dataConvert);
 			  }
 		  }
 		  // Retornando uma variável com todos caracteres  invertidos do tipo de dado date

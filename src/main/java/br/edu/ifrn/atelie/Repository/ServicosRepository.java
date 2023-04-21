@@ -28,6 +28,16 @@ public interface ServicosRepository extends JpaRepository<Servicos, Integer>{
      	@Query("SELECT x FROM Servicos x WHERE x.nome like %?1%")
      	List<Servicos> buscaServicos(@Param("nome")String nome);
      	
+        /**
+         * Método para somar os serviços pelo id do usuário e nome do cliente
+         * @param usuario
+         * @param nome
+         * @return O total de toda coluna valorTotal no banco de dados 
+         */
+     	@Query("SELECT SUM(x.valorTotal) FROM Servicos x WHERE x.usuario =?1 and x.nome like %?2%")
+     	Double somandoPeloNomeDoCliente(@Param("usuario")Usuario usuario,@Param("nome")String nome);
+     	
+     	
      // lista todos serviços pela datas de inicio e final
      /*	@Query("SELECT x FROM Servicos x WHERE x.data > ?1 and x.data <?2")
      	List<Servicos> listaServicosPelasDatas(@Param("dataTermino")String dataI,@Param("dataTermino")String data);
