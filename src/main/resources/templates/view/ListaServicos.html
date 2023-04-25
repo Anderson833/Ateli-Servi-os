@@ -73,24 +73,20 @@ h1{
            </div>   
           </div>
             <a href="/" style="margin-left: 0%;">Ir para Tela Principal</a>
-            <div >
-         
-              <form th:action="@{/servicos/buscasCliente}" method="post">
-                  Pesquisa Cliente:
-                <input name="pesquisa" placeholder="Nome do Cliente">
-                <input type="submit" value="Buscar:">
-              </form>
                  <div class="formDatas">
-              <form th:action="@{/servicos/buscaPorDatas}" method="post">
-              
+              <form th:action="@{/servicos/lista/NomeCliente/EntreAsDatas}" method="post">
+                Cliente:
+                <input name="pesquisa" type="text" placeholder="Informe nome">
+                 Tipo de Serviço:
+                <input name="tiposervicos" type="text" placeholder="Informe o tipo de serviço">
+                Data Início:
                 <input type="date" name="dataInicio" placeholder="Informe a Data de início:">
-              
+                Data Final:
                 <input type="date" name="dataFinal" placeholder="Informe a Data Final">
-               
                 <input type="submit" value="Listar:">
               </form>
             </div>
-            </div>
+            
             <br><br>
         <div class="barraderolagem">
     
