@@ -72,10 +72,15 @@ h1{
           </div>
             <a href="/" style="margin-left: 0%;">Ir para Tela Principal</a>
             <div >
-              <form th:action="@{/servicos/buscasCliente}" method="post">
-                  Pesquisa Investimento:
-                <input name="pesquisa">
-                <input type="submit" value="Buscar:">
+              </form>
+               <form th:action="@{/Investimento/lista/Produto/Datas}" method="post">
+                   Pesquisa Investimento:
+                <input name="listaprodutos">
+                  Data início:
+                <input type="date" name="dataInicio">
+                  Data Final:
+                <input type="date" name="dataFinal">
+                <input type="submit" value="lista:">
               </form>
             </div>
             <br><br>

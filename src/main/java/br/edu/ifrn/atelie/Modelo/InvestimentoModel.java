@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.ForeignKey;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.lang.Nullable;
 
 // Essa classe vai modela os investimentos
@@ -17,8 +18,10 @@ import org.springframework.lang.Nullable;
 @Entity
 public class InvestimentoModel {
    // Os Atributos do investimento
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	private int id;
 	
 	@Override
@@ -42,7 +45,9 @@ public class InvestimentoModel {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	private String nomeProduto;
+	
 	@Column (nullable = true)
 	private String descricao;
 	private double valorUnitario;

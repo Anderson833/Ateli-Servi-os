@@ -47,7 +47,7 @@ h1{
 
 </style>
 <meta charset="UTF-8">
-<title>Lista Serviços</title>
+<title>Lista despesas</title>
        <div th:replace="linkCss"></div>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
@@ -72,9 +72,13 @@ h1{
           </div>
             <a href="/" style="margin-left: 0%;">Ir para Tela Principal</a>
             <div >
-              <form th:action="@{/servicos/buscasCliente}" method="post">
-                  Pesquisa Cliente:
-                <input name="pesquisa">
+              <form th:action="@{/despesas/descricao/datas}" method="post">
+                  Pesquisa Despesas:
+                <input name="descricao">
+                   Data Início:
+                <input type="date" name="dataincio">
+                   Data Final:
+                <input type="date" name="datafinal">
                 <input type="submit" value="Buscar:">
               </form>
             </div>

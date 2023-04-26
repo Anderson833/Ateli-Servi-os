@@ -53,7 +53,7 @@ public class RelatorioController {
 			 // Listando todas despesas pelo id do usuário  		 
 			 double totalDespesa=0,totalInvest=0,totalServicos=0; 
 				// As condições para saber se esta vazias as tabelas
-				if( RepositoryDesp.soma(us)==null&& repositoryInvest.soma(us)==null&& repositoryServico.soma(us)==null) {
+				if( RepositoryDesp.somaDespesasPorIdUsuario(us)==null&& repositoryInvest.soma(us)==null&& repositoryServico.soma(us)==null) {
 					// Passando o resultado para decimal
 					DecimalFormat decimal = new DecimalFormat("#,##0.00");
 					                  // exibindo o resultado
@@ -68,8 +68,8 @@ public class RelatorioController {
 					return  "view/relatorio";
 					
 					// condição para despesas diferente de nulo e investimento, serviço nulos
-				}else if(RepositoryDesp.soma(us)!=null&& repositoryInvest.soma(us)==null&&repositoryServico.soma(us)==null){
-					desp.setValorTotal(RepositoryDesp.soma(us)); // somando a qtd
+				}else if(RepositoryDesp.somaDespesasPorIdUsuario(us)!=null&& repositoryInvest.soma(us)==null&&repositoryServico.soma(us)==null){
+					desp.setValorTotal(RepositoryDesp.somaDespesasPorIdUsuario(us)); // somando a qtd
 					// Passando o resultado para decimal
 					DecimalFormat decimal = new DecimalFormat("#,##0.00");
 					String total =decimal.format(desp.getValorTotal());
@@ -80,7 +80,7 @@ public class RelatorioController {
 					return  "view/relatorio";
 					
 					// condição para só investimento sendo diferente de nulo
-				}else if(RepositoryDesp.soma(us)==null&& repositoryInvest.soma(us)!=null&&repositoryServico.soma(us)==null){
+				}else if(RepositoryDesp.somaDespesasPorIdUsuario(us)==null&& repositoryInvest.soma(us)!=null&&repositoryServico.soma(us)==null){
 					//Pegando toda soma dos investimentos pelo id do usuário
 					invest.setValorTotal(repositoryInvest.soma(us)); 
 					// Passando o resultado para decimal
@@ -94,7 +94,7 @@ public class RelatorioController {
 					return  "view/relatorio";
 					
 					// condição para só serviços é diferente de nulo
-				}else if(RepositoryDesp.soma(us)==null&& repositoryInvest.soma(us)==null&&repositoryServico.soma(us)!=null){ 
+				}else if(RepositoryDesp.somaDespesasPorIdUsuario(us)==null&& repositoryInvest.soma(us)==null&&repositoryServico.soma(us)!=null){ 
 					 //Pegando toda soma dos servicos pelo id do usuário
 					serv.setValorTotal(repositoryServico.soma(us)); // somando a qtd
 					// Passando o resultado para decimal
@@ -108,8 +108,8 @@ public class RelatorioController {
 						return  "view/relatorio";
 					
 					// condição para despesa e investimento se é diferente de nulo e servicos ao contrário
-				}else if(RepositoryDesp.soma(us)!=null&& repositoryInvest.soma(us)!=null&&repositoryServico.soma(us)==null){
-					desp.setValorTotal(RepositoryDesp.soma(us)); // somando a qtd
+				}else if(RepositoryDesp.somaDespesasPorIdUsuario(us)!=null&& repositoryInvest.soma(us)!=null&&repositoryServico.soma(us)==null){
+					desp.setValorTotal(RepositoryDesp.somaDespesasPorIdUsuario(us)); // somando a qtd
 					// Passando o resultado para decimal
 					DecimalFormat decimal = new DecimalFormat("#,##0.00");
 					String total =decimal.format(desp.getValorTotal());
@@ -126,7 +126,7 @@ public class RelatorioController {
 					return  "view/relatorio";
 					
 					//condição despesa sendo nulo investimento e servicos não
-				}else if(RepositoryDesp.soma(us)==null&& repositoryInvest.soma(us)!=null&&repositoryServico.soma(us)!=null){
+				}else if(RepositoryDesp.somaDespesasPorIdUsuario(us)==null&& repositoryInvest.soma(us)!=null&&repositoryServico.soma(us)!=null){
 					// Passando o resultado para decimal
 					DecimalFormat decimal = new DecimalFormat("#,##0.00");
 					//Pegando toda soma dos investimentos pelo id do usuário
@@ -146,7 +146,7 @@ public class RelatorioController {
 					return  "view/relatorio";
 					
 					// condição servicos e despesa são diferente de nulo investimento é nulo
-				}else if(RepositoryDesp.soma(us)!=null&& repositoryInvest.soma(us)==null&&repositoryServico.soma(us)!=null) {
+				}else if(RepositoryDesp.somaDespesasPorIdUsuario(us)!=null&& repositoryInvest.soma(us)==null&&repositoryServico.soma(us)!=null) {
 					// Passando o resultado para decimal
 					DecimalFormat decimal = new DecimalFormat("#,##0.00");
 						 //Pegando toda soma dos servicos pelo id do usuário
@@ -154,7 +154,7 @@ public class RelatorioController {
 						// Passando o resultado para decimal
 						String tota3 =decimal.format(serv.getValorTotal());
 						
-						desp.setValorTotal(RepositoryDesp.soma(us)); 	
+						desp.setValorTotal(RepositoryDesp.somaDespesasPorIdUsuario(us)); 	
 						String total =decimal.format(desp.getValorTotal());
 						
 						// Passando valor total para se exibida na página html
@@ -170,7 +170,7 @@ public class RelatorioController {
 						// Passando o resultado para decimal
 						String totalDosServicos =decimal.format(serv.getValorTotal());
 						
-						desp.setValorTotal(RepositoryDesp.soma(us)); 	
+						desp.setValorTotal(RepositoryDesp.somaDespesasPorIdUsuario(us)); 	
 						String totalDasDespesas =decimal.format(desp.getValorTotal());
 						
 						//Pegando toda soma dos investimentos pelo id do usuário
