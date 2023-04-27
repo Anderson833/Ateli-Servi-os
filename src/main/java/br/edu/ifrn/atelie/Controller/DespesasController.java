@@ -241,20 +241,17 @@ public class DespesasController {
 		return "view/ListaDespesas";
 	}
 
-	// Método para lista e soma as despesas por varias opções
+	// Método para lista e soma as despesas por varias opções, descrição, entre as datas
 	@PostMapping("/descricao/datas")
 	public String listaSomaDespesasPorOpcoes(ModelMap md, Despesa desp, @RequestParam(name="descricao",required = false) String descricao,
-			@RequestParam(name="datainicio",required = false) String datai, @RequestParam(name="datafinal",required = false) String dataf) {
-		
-		if (!descricao.isEmpty()) {
+			@RequestParam(name="datai",required = false) String datai, @RequestParam(name="dataf",required = false) String dataf) {
+	   
+		if (!descricao.isEmpty()&& datai.isEmpty() && dataf.isEmpty()) {
 			listaSomaDespesasDescricao(md, desp, descricao);
-		} else if (datai!=null && dataf!=null) {
-		//	listaSomaDespesasPelasDatas(md, desp, datai, dataf);
-			System.out.println("if 2");
-		} else if (!descricao.isEmpty() && !datai.isEmpty() && !dataf.isEmpty()){
-          // listaSomaDespesasPorTodasOpcaos(md, desp, descricao, datai, dataf);
+		} else if (!datai.isEmpty() && !dataf.isEmpty() && descricao.isEmpty()) {
+			listaSomaDespesasPelasDatas(md, desp, datai, dataf);
 		}else {
-		
+	    listaSomaDespesasPorTodasOpcaos(md, desp, descricao, datai, dataf);
 		}
 		return "view/ListaDespesas";
 		
