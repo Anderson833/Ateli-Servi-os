@@ -16,7 +16,7 @@
  display: flex; /*Comando para deixar as divs na horizontal*/
   flex-direction: row-reverse;   /*Comando para deixar as divs na horizontal*/ /*flex-direction: column;   /*Comando para deixar as divs na vertical*/
   flex-wrap: wrap; /*Comando para fazer funciona os tamonhos em %*/
-  margin-top: 5%;
+  margin-top: 2%;
   text-align: center;
   /*justify-content: start; /*Conteúdo ficar do lado esquerdo*/
  /*  justify-content: end; /*Conteúdo ficar do lado direito*/
@@ -63,10 +63,25 @@ h1{
 	padding-left: 7%;
 	
 }
+ /*Colocando o formulário distante do lado esquerdo */
+  form{
+	margin-left: 8%;
+	padding-top: 2%;
+}
+ 
 </style>
 <body>
                <h1>Relatório</h1>
    <a href="/" style="margin-left: 0%;">Ir para Tela Principal</a>
+   
+     <form th:action="@{/relatorio/datas}" method="post">
+                   Data Início:
+                <input type="date" class="campos" name="data_i">
+                   Data Final:
+                <input type="date" class="campos" name="data_f">
+                <input type="submit" value="Buscar:">
+              </form>
+   
      <div class="container">
   
        <div class="div1">
