@@ -44,7 +44,10 @@ h1{
 .total{
 	margin-left: 80%;
 }
-
+/*Colocando os icones de exluie e de adição para fica no meio da coluna*/
+.icone{
+	padding-left: 20%;
+}
 </style>
 <meta charset="UTF-8">
 <title>Lista despesas</title>
@@ -92,9 +95,9 @@ h1{
     <!-- Crindo uma linha para colocar os títulos da coluna-->
     <tr>
          <!--Criando os títulos -->
-      <th scope="col">Descrição:</th>
-      <th scope="col">Valor Total:</th>
-      <th scope="col">Data:</th>
+      <th class="centralizaTextos" scope="col">Descrição:</th>
+      <th class="centralizaTextos" scope="col">Valor Total:</th>
+      <th class="centralizaTextos" scope="col">Data:</th>
 
                            <!--Criador uma classe para altera o lugar do título -->
       <th  scope="col"><div class="centralizaTextos">Opção:</div></th>
@@ -112,13 +115,13 @@ h1{
                  <td th:text="${desp.data}"  class="centralizaTextos"></td>
                       <!-- um link para excluir um serviço pelo id -->  
                  <td>                                                                                    <!-- colocando um icone na tag de imagem pelo thymelef -->          
-                 <a th:href="'/despesas/excluir/' + ${desp.id}" th:onclick="if(!confirm('Deseja excluir esse Serviço?'))return false" class="bt" ><img th:src="@{/imagem/bin.png}"/>
+                 <a th:href="'/despesas/excluir/' + ${desp.id}" th:onclick="if(!confirm('Deseja excluir esse Serviço?'))return false" class="bt" ><img class="icone" th:src="@{/imagem/bin.png}"/>
                  </a>
                   <!-- <a th:href="'/servicos/deletaTudo'">deleta -->
 
               </td>
               <td>
-               <a th:href="'/despesas/editar/' + ${desp.id}" th:onclick="if(!confirm('Deseja atualizar alguns dados?'))return false" class="bt" ><img th:src="@{/imagem/atualizar.png}"/>
+               <a th:href="'/despesas/editar/' + ${desp.id}" th:onclick="if(!confirm('Deseja atualizar alguns dados?'))return false" class="bt" ><img class="icone" th:src="@{/imagem/atualizar.png}"/>
                 </a>
               </td>
             </tr>
