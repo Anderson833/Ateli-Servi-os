@@ -93,25 +93,26 @@ public class ServicosController {
 	@PostMapping("/adicionar")
 	@PreAuthorize("hasAuthority('admin')")
 	public String adicionarServicos(Servicos serv, ModelMap md, RedirectAttributes att,
-			@RequestParam(name = "buscaNome", required = false) String nome) {
-
-		List<ClienteModel> cliente = clienteRp.listaClientePeloNome(nome);
+			@RequestParam(name="nome", required = false) String nomeCliente) {
+            
+		List<ClienteModel> cliente = clienteRp.listaClientePeloNome(nomeCliente);
 		// condição para lista tudo
-		if (cliente == null) {
-			att.addFlashAttribute("msgsucesso", "Não tem esse usuário cadastrado!");
-			System.out.println("entrou fo if ");
+		if (cliente.isEmpty()||cliente==null) {
+			att.addFlashAttribute("msgsucesso", "Não tem esse cliente cadastrado! "+nomeCliente);
 			return "redirect:/servicos/atividades";
 
 		} else {
+		
 			// Convertendo a data de date para String e salva no banco de dados como varchar
 			String dataConvertida = dataConvertida(serv.getData());
 			// setando a data convertida
 			serv.setData(dataConvertida);
-			att.addFlashAttribute("msgsucesso", "Operação Realizada Com Sucesso!");
+			att.addFlashAttribute("msgsucesso", "Operação Realizada Com Sucesso! ");
+		
 			// já salvar no banco de dados
-			repositoryServico.save(serv);
+		//	repositoryServico.save(serv);
 		}
-
+			
 		return "redirect:/servicos/atividades";
 	}
 
