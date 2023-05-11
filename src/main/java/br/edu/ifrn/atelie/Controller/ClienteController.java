@@ -25,6 +25,7 @@ import br.edu.ifrn.atelie.Modelo.Servicos;
 import br.edu.ifrn.atelie.Modelo.Usuario;
 import br.edu.ifrn.atelie.Repository.ClienteRepository;
 import br.edu.ifrn.atelie.Repository.UsuarioRepository;
+import br.edu.ifrn.atelie.Service.Ajustes;
 
 @Controller
 @RequestMapping("/Clientes")
@@ -32,116 +33,96 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteRepository repository;
-	
+
 	@Autowired
 	private UsuarioRepository repositoryUsuario;
-	
+
 	// Método para abrir a página de cadastrar clientes e passar os objetos
-	 @GetMapping("/home")
+	@GetMapping("/home")
 	public String home(ModelMap model, ClienteModel cli) {
-		 
-			  // Pegando email do usuário 
-		 String email= Usuario.getEmailUsuario();
-		
-		  System.out.println(" aqui o email "+Usuario.listaEmail.toString());
-		  
-		  // Pegando id do usuário pelo email informado no paramentro
-		  int ids = repositoryUsuario.BuscaIdPeloEmail(email);
-			System.out.println("aqui  id do usuário é = "+ids);
-			
-			// buscando todos dados do usuário pelo id informa no paramentro
-		     Usuario us = repositoryUsuario.BuscaTodosDadosDoUsuarioPeloId(ids);
-		 System.out.println("O objeto é esse  "+us.getId());
-		 // Passando para objeto do tipo usuário para atributo no objeto ClienteModel
-		  cli.setUsuario(us);
-	     // Passando o objeto para página html 
-		 model.addAttribute("pessoa",cli);
+
+		// Passando para objeto do tipo usuário para atributo no objeto ClienteModel
+		cli.setUsuario(Ajustes.idUsuarioAoLogar(repositoryUsuario));
+		// Passando o objeto para página html
+		model.addAttribute("pessoa", cli);
 		return "view/Clientes";
 	}
-	 //Método para adicionar os dados dos clientes
-	 @PostMapping("/Cadastro")
-	 @Transactional(readOnly = false)
-	 @PreAuthorize("hasAuthority('admin')")
-	 public String adicionarClientes(ClienteModel cliente,RedirectAttributes At) {
-				 repository.save(cliente);
-		 At.addFlashAttribute("msgSucesso","Cliente Cadastrado com sucesso!");
-		 return "redirect:/Clientes/home";
-	 }
-	 
-	//método que inicia a pagina de listagem 
-	 @GetMapping("/listar")
+
+	// Método para adicionar os dados dos clientes
+	@PostMapping("/Cadastro")
+	@Transactional(readOnly = false)
+	@PreAuthorize("hasAuthority('admin')")
+	public String adicionarClientes(ClienteModel cliente, RedirectAttributes At) {
+		repository.save(cliente);
+		At.addFlashAttribute("msgSucesso", "Cliente Cadastrado com sucesso!");
+		return "redirect:/Clientes/home";
+	}
+
+	// método que inicia a pagina de listagem
+	@GetMapping("/listar")
 	public String iniciolista() {
 		return "view/listaClientes";
 	}
-    
-		// Método para editar cliente
-		@GetMapping("/edita/{id}")
-		 @PreAuthorize("hasAuthority('admin')")
-		public String editarServico(@PathVariable("id") Integer idCliente, ModelMap model) {
-			 // buscando pelo id do tipo do cliente
-			Optional<ClienteModel> clientes = repository.findById(idCliente);
-			// deletando o tipo de cliente que tem esse tipo de id para adicionar outro novo
-		    repository.deleteById(idCliente);
-		     // Passando os objetos para a página de cadastro de clientes
-			model.addAttribute("pessoa",clientes);
-			// retornando a ação para página de Lista todos clientes
-			return "view/Clientes";
+
+	// Método para editar cliente
+	@GetMapping("/edita/{id}")
+	@PreAuthorize("hasAuthority('admin')")
+	public String editarServico(@PathVariable("id") Integer idCliente, ModelMap model) {
+		// buscando pelo id do tipo do cliente
+		Optional<ClienteModel> clientes = repository.findById(idCliente);
+		// deletando o tipo de cliente que tem esse tipo de id para adicionar outro novo
+		repository.deleteById(idCliente);
+		// Passando os objetos para a página de cadastro de clientes
+		model.addAttribute("pessoa", clientes);
+		// retornando a ação para página de Lista todos clientes
+		return "view/Clientes";
+	}
+
+	// método para lista todos clientes
+	@GetMapping("/listaTodosClientes")
+	@Transactional(readOnly = true)
+	public String listaTudo(ClienteModel cli, ModelMap md) {
+
+		List<ClienteModel> clientes = repository
+ // Passando o id do usuário que entrou no sistema para pode faz suas necessidades
+		.listaClientesPeloIdUsuario(Ajustes.idUsuarioAoLogar(repositoryUsuario));
+		md.addAttribute("clientes", clientes);
+
+		return "view/listaTodosClientes";
+	}
+
+	// método para lista todos os clientes
+	@GetMapping("/Listagem") // passando os dados como parâmetros para lista os dados dos clientes
+	public String listarVagas(@RequestParam(name = "nome", required = false) String nome,
+			@RequestParam(name = "telefone", required = false) String telefone,
+			@RequestParam(name = "endereco", required = false) String endereco,
+			@RequestParam(name = "mostrarClientes", required = false) Boolean mostrarClientes, HttpSession session,
+			ModelMap model) {
+		// Passando uma lista como parâmetros os dados que pertence ao cliente para
+		// criar um objeto
+		List<ClienteModel> ClientesCadastrados = repository.findByNomeAndTelefoneAndEndereco(nome, telefone, endereco);
+		// atribuindo o objeto do tipo cliente
+		model.addAttribute("clientesCadastrados", ClientesCadastrados);
+		// condição para saber se a lista de clientes está sem dados
+		if (mostrarClientes != null) {
+			// atribuindo a lista todos os clientes
+			model.addAttribute("mostrarClientes", true);
 		}
-		
-	 //método para lista todos clientes
-	  @GetMapping("/listaTodosClientes")
-	  @Transactional(readOnly = true)
-	 public String listaTudo(ClienteModel cli ,ModelMap md) {
-		  
-		  // Pegando email do usuário 
-			 String email= Usuario.getEmailUsuario();
-			  System.out.println(" aqui o email "+Usuario.listaEmail.toString());
-			  
-			  
-				  // Pegando id do usuário pelo email informado no paramentro
-				  int id = repositoryUsuario.BuscaIdPeloEmail(email);
-					System.out.println("aqui  id do usuário é = "+id);
-					// buscando todos dados do usuário pelo id informa no paramentro
-				     Usuario us = repositoryUsuario.BuscaTodosDadosDoUsuarioPeloId (id);
-				 System.out.println("O id do objeto é esse  "+us.getId());
-				// Passando todos clientes pelo id do usuário
-				  List<ClienteModel> clientes = repository.listaClientesPeloIdUsuario(us);
-				  System.out.println("Perfil do objeto "+us.admin);
-				  md.addAttribute("clientes",clientes);
-			  
-	          	 return "view/listaTodosClientes";
-	  }
- 
-	   // método para lista todos os clientes
-	 @GetMapping("/Listagem")     //passando os dados como parâmetros para lista os dados dos clientes
-		public String listarVagas(@RequestParam(name="nome" ,required = false) String nome,
-					                     @RequestParam(name="telefone", required = false) String telefone,
-					                     @RequestParam(name="endereco", required = false) String endereco,
-					                     @RequestParam(name="mostrarClientes", required = false) Boolean mostrarClientes, HttpSession session, ModelMap model) {
-                    // Passando uma lista  como parâmetros os dados que pertence ao cliente para criar um objeto
-		    	List<ClienteModel> ClientesCadastrados= repository.findByNomeAndTelefoneAndEndereco(nome,telefone,endereco); 
-		    	// atribuindo o objeto do tipo cliente
-		        model.addAttribute("clientesCadastrados",ClientesCadastrados);    
-		        // condição para saber se a lista  de clientes está sem dados 
-		   if(mostrarClientes != null) {		   
-			   //atribuindo a lista todos os clientes
-			   model.addAttribute("mostrarClientes",true);
-		   }
-		   // redirecionado para página de lista de clientes
-		    return "view/listaClientes";	
-			}
-	 
-	  //método para excluir cliente
-	 @GetMapping("/excluir/{id}") 
-	 @Transactional(readOnly = false) 
-	 @PreAuthorize("hasAuthority('admin')")//Passando o  e o objeto clinte como  parâmetros 
-	 public String excluirClientes(@PathVariable("id")ClienteModel cliente, RedirectAttributes atr) {
+		// redirecionado para página de lista de clientes
+		return "view/listaClientes";
+	}
+
+	// método para excluir cliente
+	@GetMapping("/excluir/{id}")
+	@Transactional(readOnly = false)
+	@PreAuthorize("hasAuthority('admin')") // Passando o e o objeto clinte como parâmetros
+	public String excluirClientes(@PathVariable("id") ClienteModel cliente, RedirectAttributes atr) {
 		// comando que fazer deletar o cliente pelo código
-		 repository.delete(cliente);
-		 // atribuindo uma mensagem para a view de lista clientes
-		 atr.addFlashAttribute("msgError", "Cliente deletado com Sucesso!");
-		 // retornando a página para todos dados listados 
-		 return "redirect:/Clientes/listaTodosClientes";
-	 }
-		
+		repository.delete(cliente);
+		// atribuindo uma mensagem para a view de lista clientes
+		atr.addFlashAttribute("msgError", "Cliente deletado com Sucesso!");
+		// retornando a página para todos dados listados
+		return "redirect:/Clientes/listaTodosClientes";
+	}
+
 }

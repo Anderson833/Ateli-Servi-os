@@ -19,6 +19,7 @@ import br.edu.ifrn.atelie.Repository.DespesaRepository;
 import br.edu.ifrn.atelie.Repository.InvestimentoRepository;
 import br.edu.ifrn.atelie.Repository.ServicosRepository;
 import br.edu.ifrn.atelie.Repository.UsuarioRepository;
+import br.edu.ifrn.atelie.Service.Ajustes;
 
 @Controller
 public class RelatorioController {
@@ -38,22 +39,15 @@ public class RelatorioController {
 
 	@GetMapping("/relatorio")
 	public String relatorio(ModelMap md, Despesa desp, InvestimentoModel invest, Servicos serv) {
-		// Pegando email do usuário
-		String email = Usuario.getEmailUsuario();
-		System.out.println(" aqui o email " + Usuario.getEmailUsuario());
-		// Pegando id do usuário pelo email informado no paramentro
-		int id = repositoryUsuario.BuscaIdPeloEmail(email);
-		System.out.println("aqui  id do usuário é = " + id);
+		
 
-		// buscando todos dados do usuário pelo id informa no paramentro
-		Usuario us = repositoryUsuario.BuscaTodosDadosDoUsuarioPeloId(id);
-		System.out.println("O objeto é esse  " + us.getId());
-
+	    // Passando id do usuario para uma variável us do tipo usuario
+		Usuario us = Ajustes.idUsuarioAoLogar(repositoryUsuario);
 		// ações dos métodos nas linhas debaixo
 		// Operação das despesas
 		// Listando todas despesas pelo id do usuário
 		double totalDespesa = 0, totalInvest = 0, totalServicos = 0;
-		// As condições para saber se esta vazias as tabelas
+		// As condições para saber se as coluna do valor toal de cada tabela no banco de dados estão vazias
 		if (RepositoryDesp.somaDespesasPorIdUsuario(us) == null && repositoryInvest.soma(us) == null
 				&& repositoryServico.soma(us) == null) {
 			// Passando o resultado para decimal
@@ -221,24 +215,18 @@ public class RelatorioController {
 	
 	// Método para realizar relatório por datas
 	public String relatorioOperacoesEntreDatas(ModelMap md, Despesa desp, InvestimentoModel invest, Servicos serv,@RequestParam(name="data_i",required = false)String datai,@RequestParam(name="data_f",required = false)String dataf) {
-		// Pegando email do usuário
-		String email = Usuario.getEmailUsuario();
-		System.out.println(" aqui o email " + Usuario.getEmailUsuario());
-		// Pegando id do usuário pelo email informado no paramentro
-		int id = repositoryUsuario.BuscaIdPeloEmail(email);
-		System.out.println("aqui  id do usuário é = " + id);
-
-		// buscando todos dados do usuário pelo id informa no paramentro
-		Usuario us = repositoryUsuario.BuscaTodosDadosDoUsuarioPeloId(id);
+		
+		// Passando id do usuário para uma variável us do tipo usuário 
+		Usuario us =Ajustes.idUsuarioAoLogar(repositoryUsuario);
 		System.out.println("O objeto é esse  " + us.getId());
 		
 		//Convertendo as datas
-        String dataComeco=dataConvertida(datai); String dataFinal=dataConvertida(dataf);
+        String dataComeco=Ajustes.dataConvertida(datai); String dataFinal=Ajustes.dataConvertida(dataf);
 		// ações dos métodos nas linhas debaixo
 		// Operação das despesas
 		// Listando todas despesas pelo id do usuário
 		double totalDespesa = 0, totalInvest = 0, totalServicos = 0;
-		// As condições para saber se esta vazias as tabelas
+		// As condições para saber se esta vazias as colunas do valor total de cada tabela no banco de dados
 		if (RepositoryDesp.somaDespesasPorIdUsuarioEntreDatas(us, dataComeco, dataFinal) == null && repositoryInvest.somaInvestimentoPeloIdUsuarioDatas(us, dataComeco, dataFinal) == null
 				&& repositoryServico.somamdoPorDatasIdUsuario(dataComeco, dataFinal, us) == null) {
 			// Passando o resultado para decimal
@@ -430,91 +418,4 @@ public class RelatorioController {
 		return totalGanho;
 	}
     
-	// Método que convert a data de date para String de trás para frente
-		public String dataConvertida(String data) {
-			// variaveis do tipo String para armazenar os caracteres unico e específicos
-			String dataConvert = "", caracteres = "", p0 = "", p1 = "", p2 = "", p3 = "", p4 = "", p5 = "", p6 = "",
-					p7 = "", p8 = "", p9 = "";
-			// variaveis do tipo char para armazenar cada caracter específicos
-			char i0, i1, i2, i3, i4, i5, i6, i7, i8, i9;
-			// String test="2023/04/20";
-			// Lista o tamanho do atributo data que vem do paramentro
-			int tamanho = data.length();
-			// Uma for para percorrer todo tamanho do atributo e lista os caracteres
-			// específicos
-			for (int i = 0; i < tamanho; i++) {
-				char caracter = data.charAt(i);
-				// as condições para pegar cada caracter
-				if (i == 9) {
-					i9 = caracter;
-					caracteres = String.valueOf(i9);
-					p9 = caracteres;
-					/// System.out.print(" index 9 "+p9);
-
-				}
-				if (i == 8) {
-					i8 = caracter;
-					caracteres = String.valueOf(i8);
-					p8 = caracteres;
-					// System.out.print(" index 8 "+p8);
-				}
-				if (i == 7) {
-					i7 = caracter;
-					caracteres = String.valueOf(i7);
-					p7 = caracteres.replace("-", "/");
-					// System.out.print(" index 7 "+p7);
-				}
-				if (i == 6) {
-					i6 = caracter;
-					caracteres = String.valueOf(i6);
-					p6 = caracteres;
-					// System.out.print(" index 6 "+p6);
-				}
-				if (i == 5) {
-					i5 = caracter;
-					caracteres = String.valueOf(i5);
-					p5 = caracteres;
-					// System.out.print(" index 5 "+p5);
-				}
-				if (i == 4) {
-					i4 = caracter;
-					caracteres = String.valueOf(i4);
-					p4 = caracteres.replace("-", "/");
-					// System.out.print(" index 4 "+p4);
-				}
-				if (i == 3) {
-					i3 = caracter;
-					caracteres = String.valueOf(i3);
-					p3 = caracteres;
-					// System.out.print(" index 3 "+p3);
-				}
-				if (i == 2) {
-					i2 = caracter;
-					caracteres = String.valueOf(i2);
-					p2 = caracteres;
-					// System.out.print("index 2 "+p2);
-				}
-				if (i == 1) {
-					i1 = caracter;
-					caracteres = String.valueOf(i1);
-					p1 = caracteres;
-					// System.out.print(" index 1 "+p1);
-				}
-				if (i == 0) {
-					i0 = caracter;
-					caracteres = String.valueOf(i0);
-					p0 = caracteres;
-					// System.out.print(" index 0 "+p0);
-				}
-				if (i == 9) {
-					// System.out.println(" "+test+" Data convertida
-					// "+p8+p9+p7+p5+p6+p4+p0+p1+p2+p3);
-					dataConvert = p8 + p9 + p7 + p5 + p6 + p4 + p0 + p1 + p2 + p3;
-					// System.out.println(" "+dataConvert);
-				}
-			}
-			// Retornando uma variável com todos caracteres invertidos do tipo de dado date
-			return dataConvert;
-		}
-	
 }

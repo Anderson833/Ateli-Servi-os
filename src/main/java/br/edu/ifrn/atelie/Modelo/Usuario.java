@@ -23,8 +23,6 @@ public class Usuario {
 	  @GenericGenerator(name = "increment", strategy = "increment")
 	 private int id;
 	 private String perfilUsuario=admin;
-     
-	 public static ArrayList<String> listaEmail = new ArrayList<>();
 	
 	 private static String EmailUsuario;
 	
@@ -34,6 +32,7 @@ public class Usuario {
 	public static void setEmailUsuario(String emailUsuario) {
 		EmailUsuario = emailUsuario;
 	}
+	
 	public String getPerfilUsuario() {
 		return perfilUsuario;
 	}

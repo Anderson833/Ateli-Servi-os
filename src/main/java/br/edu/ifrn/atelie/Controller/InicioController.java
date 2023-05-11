@@ -17,9 +17,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.edu.ifrn.atelie.Modelo.Servicos;
 import br.edu.ifrn.atelie.Modelo.Usuario;
 import br.edu.ifrn.atelie.Repository.UsuarioRepository;
+import br.edu.ifrn.atelie.Service.Ajustes;
+import br.edu.ifrn.atelie.Service.UsuarioService;
 
 @Controller
-public class InicioController {
+public class InicioController extends Ajustes{
     
 	@Autowired
 	private UsuarioRepository repository;
@@ -38,21 +40,24 @@ public class InicioController {
     	model.addAttribute("msgErrorLogin"," Email ou  senha estão incorretos. Tente novamente!");
     	return "view/login";
 	}
-    
+     
+     
 	
 	   //método para abrir a tela principal
 		 @GetMapping("/")
 		 public String telaPrincipalComAutorizacao(RedirectAttributes att) {
 		
-			String email =Usuario.getEmailUsuario();
-		/*	System.out.println(" Esse é o email do Usuário "+email);*/
-	
+			Ajustes.idUsuarioAoLogar(repository);
+			//System.out.println(" id do usuario "+controle.idUsuariologin());
+	   /*
 			 ArrayList<Integer> acesso = new ArrayList<>();
 			 ArrayList<Integer> restricao = new ArrayList<>();
 			// Pegando o id do usuário pelo email passado como parametros 
-			int id = repository.BuscaIdPeloEmail(email);
+			 
 			
-			System.out.println("id desse usuário é = "+id);
+			int id = repository.BuscaIdPeloEmail(email);
+		 				 System.out.println("id desse usuário é o antigo  = "+id);
+		 
 			acesso.add(id);
 		    restricao.add(0);
 		   
@@ -75,7 +80,7 @@ public class InicioController {
 			}else {
 				
 			}
-			System.out.println("Entrou no else ");
+			System.out.println("Entrou no else ");*/
 			return "view/Principal";
 		 }
 	    

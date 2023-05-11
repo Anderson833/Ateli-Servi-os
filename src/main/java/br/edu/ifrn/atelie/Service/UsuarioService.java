@@ -22,8 +22,7 @@ public class UsuarioService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// Pegando  email do usuário para depois busca pelo id no controller de inicio         
-	    // Usuario.listaEmail.add(username);
-	     Usuario.setEmailUsuario(username);
+	    Usuario.setEmailUsuario(username);
 		// passando os dados do UsuarioRepository para objeto usuario 
 				Usuario usuario = repository.findByEmail(username)
 				 
@@ -39,4 +38,9 @@ public class UsuarioService implements UserDetailsService {
 		
 	}
     
+	
+
+
+
+	
 }
