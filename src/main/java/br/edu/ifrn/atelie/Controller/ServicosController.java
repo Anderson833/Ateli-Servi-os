@@ -83,7 +83,7 @@ public class ServicosController {
 	public String adicionarServicos(Servicos serv, ModelMap md, RedirectAttributes att,
 			@RequestParam(name = "nome", required = false) String nomeCliente) {
 
-		List<ClienteModel> cliente = clienteRp.listaClientePeloNome(nomeCliente);
+		List<ClienteModel> cliente = clienteRp.listaClientePeloNome(nomeCliente,Ajustes.idUsuarioAoLogar(repository));
 		// condição para lista tudo
 		if (cliente.isEmpty() || cliente == null) {
 			att.addFlashAttribute("msgsucesso", "Não tem esse cliente " + nomeCliente + " cadastrado!");
@@ -381,9 +381,9 @@ public class ServicosController {
 	@GetMapping("/autocompleteClientes")
 	@Transactional(readOnly = true)
 	@ResponseBody
-	public List<br.edu.ifrn.atelie.DTO.AutocompleteDTO> autocompleteVagas(@RequestParam("term") String termo) {
-
-		List<ClienteModel> cliente = clienteRp.findByNome(termo);
+	public List<br.edu.ifrn.atelie.DTO.AutocompleteDTO> autocompleteClientes(@RequestParam("term") String termo) {
+        Usuario usuario=Ajustes.idUsuarioAoLogar(repository);
+		List<ClienteModel> cliente = clienteRp.findByNome(usuario,termo);
 
 		List<br.edu.ifrn.atelie.DTO.AutocompleteDTO> eficacia = new ArrayList<>();
 		cliente.forEach(v -> eficacia.add(new br.edu.ifrn.atelie.DTO.AutocompleteDTO(v.getNome(), v.getId())));

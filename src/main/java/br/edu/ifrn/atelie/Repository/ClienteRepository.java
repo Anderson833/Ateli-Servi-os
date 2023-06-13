@@ -22,16 +22,26 @@ public interface ClienteRepository extends JpaRepository<ClienteModel, Integer>{
 				                         @Param("endereco")String endereco);
 		
 		
-		// BUSCANDO PELO NOME DO CLIENTE
-		@Query("select v from ClienteModel v where v.nome like %:nome%")
-		 List<ClienteModel> findByNome(@Param("nome")String nome);
+		/**
+		 * Método para lista os clientes que foram registrados por cada usuário específico 
+		 * @param us
+		 * @param nome
+		 * @return Os clientes de um usuário específico
+		 */
+		@Query("select v from ClienteModel v where v.usuario =?1 and v.nome like %?2%")
+		 List<ClienteModel> findByNome(@Param("usuario")Usuario us,@Param("nome")String nome);
 		
 		// listando todos clientes pelo id do usuário
     	@Query("SELECT x FROM ClienteModel x WHERE x.usuario = ?1")
      	List<ClienteModel> listaClientesPeloIdUsuario(@Param("usuario")Usuario us);
     
-    	// lista o nome do cliente por nome informado
-     	@Query("SELECT x FROM ClienteModel x WHERE x.nome like %:nome%")
-     	List<ClienteModel> listaClientePeloNome(@Param("nome")String nomeCliente);
+    	/**
+    	 * Método para Lista nome do cliente pelo id do usuário 
+    	 * @param nomeCliente
+    	 * @param idUsuario
+    	 * @return Nome do cliente
+    	 */
+     	@Query("SELECT x FROM ClienteModel x WHERE x.nome =?1 and x.usuario =?2")
+     	List<ClienteModel> listaClientePeloNome(@Param("nome")String nomeCliente,@Param("usuario")Usuario idUsuario);
      
 }

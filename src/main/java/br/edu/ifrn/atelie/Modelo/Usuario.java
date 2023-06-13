@@ -39,7 +39,8 @@ public class Usuario {
 	public void setPerfilUsuario(String perfilUsuario) {
 		this.perfilUsuario = perfilUsuario;
 	}
-	
+
+
 	@OneToMany(mappedBy = "usuario",orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Servicos> servicos = new ArrayList<>(); 
 	

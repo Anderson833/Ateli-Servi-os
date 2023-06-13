@@ -2,6 +2,8 @@ package br.edu.ifrn.atelie.Controller;
 
 import java.util.ArrayList;
 
+import javax.crypto.spec.DESedeKeySpec;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
