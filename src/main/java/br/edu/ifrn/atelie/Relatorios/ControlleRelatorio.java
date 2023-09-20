@@ -37,14 +37,15 @@ public class ControlleRelatorio {
 	private ServicosRelatorios RelatorioServices;
 	@Autowired
 	private JdbcTemplate jdbactemplate;
-	//@GetMapping(value="/relatorioPdf",produces = "apllication/pdf")
+	@GetMapping(value="/relatorioPdf",produces = "application/text")
 	public ResponseEntity<String> donwloadPdf(HttpServletRequest request) throws JRException, SQLException{
-		byte [] pdf = RelatorioServices.geraRelatorio("servicos.", request.getServletContext());
+		byte [] pdf = RelatorioServices.geraRelatorio("C:\\Users\\ander\\AppData\\Local\\Temp\\tomcat-docbase.8080.10432849200137619606\\MyReports\\usuarios", request.getServletContext());
 		
 		String base64Pdf ="data:application/pdf;base64,"+Base64.encodeBase64String(pdf);
 		return new ResponseEntity<String>(base64Pdf, HttpStatus.OK);
 	}
-	@GetMapping("/relatorioPdf")
+	
+//	@GetMapping("/relatorioPdf")
 	public void criarPdf(HttpServletResponse response) throws IOException, JRException {
 		response.setContentType("apllication/pdf");
 		DateFormat   dataFormatada  = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");

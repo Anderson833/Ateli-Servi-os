@@ -28,6 +28,8 @@ public class InicioController extends Ajustes{
 	
 	int contador=0;
 	
+	//Endereço da URL para abrir a página de início http://localhost:8080/login
+	
 	// método para abrir a página de login 
 	@GetMapping("/login")
 	public String inicio(){

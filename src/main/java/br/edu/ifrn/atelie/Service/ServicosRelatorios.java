@@ -45,8 +45,8 @@ public class ServicosRelatorios implements Serializable{
 		Connection connection =jdbactemplate.getDataSource().getConnection();
 		
 		/*Criando o caminho do arquivo jasper*/
-		String caminhoJasper= servletContext.getRealPath("")
-				+File.separator+nomeRelatorio+"jasper";
+		String caminhoJasper= servletContext.getRealPath("relatorios")
+				+File.separator + nomeRelatorio + ".jasper";
 		
 		/*Gerar o relatório com os dados e conexao*/
 		JasperPrint print = JasperFillManager.fillReport(caminhoJasper, new HashMap<>(), connection);
@@ -60,6 +60,7 @@ public class ServicosRelatorios implements Serializable{
 	 public void exportJasperSoft(HttpServletResponse response) throws IOException, JRException{
 		 List<Usuario> listaUsuarios =repositoryUsuario.findAll();
 		 File file = ResourceUtils.getFile("classpath:servicos.jrxml");
+		 
 		 JasperReport  jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
 		 JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listaUsuarios);
 		 HashMap<String,Object> parametro = new HashMap<>();
